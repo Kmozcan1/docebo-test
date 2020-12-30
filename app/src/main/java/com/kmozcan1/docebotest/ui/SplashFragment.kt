@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kmozcan1.docebotest.R
-import com.kmozcan1.docebotest.presentation.SplashViewModel
+import com.kmozcan1.docebotest.presentation.viewmodel.SplashViewModel
 
 class SplashFragment : Fragment() {
 
