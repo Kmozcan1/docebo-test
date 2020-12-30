@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.application
+package com.kmozcan1.docebotest.application.di
 
 import com.kmozcan1.docebotest.data.api.SearchApi
 import dagger.Module

@@ -2,11 +2,70 @@ package com.kmozcan1.docebotest.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.kmozcan1.docebotest.R
+import com.kmozcan1.docebotest.databinding.ActivityMainBinding
+import com.kmozcan1.docebotest.presentation.viewmodel.MainViewModel
+import com.kmozcan1.docebotest.presentation.viewstate.MainViewState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private lateinit var viewModel: MainViewModel
+
+
+    var isConnectedToInternet: Boolean = false
+        private set
+
+    private lateinit var binding: ActivityMainBinding
+
+    private val navController: NavController by lazy {
+        findNavController(R.id.nav_host_fragment)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.mainViewState.observe(this, observeViewState())
+        viewModel.observeInternetConnection()
+
+        /*val toolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.coll)
+        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)*/
+
+
+    }
+
+    private fun observeViewState() = Observer<MainViewState> { viewState ->
+        when {
+            viewState.hasError -> {
+                makeToast(viewState.errorMessage)
+            }
+            viewState.onConnectionChange -> {
+                val baseFragment = supportFragmentManager.fragments.first()?.childFragmentManager?.fragments?.get(0) as BaseFragment<*, *>
+                isConnectedToInternet = viewState.isConnected
+                if (viewState.isConnected) {
+                    baseFragment.onInternetConnected()
+                } else {
+                    baseFragment.onInternetDisconnected()
+                }
+            }
+        }
+    }
+
+    fun makeToast(toastMessage: String?) {
+        Toast.makeText(
+            this,
+            toastMessage,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

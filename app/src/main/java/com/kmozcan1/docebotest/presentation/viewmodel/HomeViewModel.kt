@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation
+package com.kmozcan1.docebotest.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 

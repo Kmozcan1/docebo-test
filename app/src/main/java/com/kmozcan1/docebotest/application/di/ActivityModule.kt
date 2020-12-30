@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.application
+package com.kmozcan1.docebotest.application.di
 
 import android.app.Activity
 import com.kmozcan1.docebotest.ui.MainActivity
