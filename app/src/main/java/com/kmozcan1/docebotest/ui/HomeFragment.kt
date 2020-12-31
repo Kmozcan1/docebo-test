@@ -5,10 +5,13 @@ import android.view.Menu
 import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.HomeFragmentBinding
 import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
+import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +35,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -41,21 +45,39 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     }
 
     private fun setSearchView(searchView: SearchView) {
-        searchView.queryHint = "Your option query hint"
         searchView.isIconified = true
         searchView.setIconifiedByDefault(false)
         searchView.maxWidth = Integer.MAX_VALUE
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                var a = 1
                 return true
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                if (query != null) {
+                    viewModel.searchUser(query)
+                }
+                return true
             }
 
         })
+    }
+
+    private fun viewStateObserver() = Observer<HomeViewState> { viewState ->
+        if (viewState.state == HomeViewState.State.SEARCH_RESULT) {
+            makeToast("GİRDİ")
+        }
+        when (viewState.state) {
+            HomeViewState.State.SEARCH_RESULT -> {
+                makeToast("GİRDİ")
+            }
+            HomeViewState.State.ERROR -> {
+                makeToast("ERROR")
+            }
+            HomeViewState.State.LOADING -> {
+                makeToast("LOADING")
+            }
+        }
     }
 
 }

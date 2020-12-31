@@ -15,8 +15,14 @@ import timber.log.Timber
 abstract class FlowableUseCase<Result, in Params> : Disposable {
     private lateinit var disposable: Disposable
 
+    /**
+     * Abstract function where the interactor class calls methods that handle domain logic
+     */
     abstract fun buildObservable(params: Params?): Flowable<Result>
 
+    /**
+     * Builds and subscribes the [Flowable] object, then adds it to the list of disposables
+     */
     fun execute(params: Params?,
                 onComplete: () -> Unit = {},
                 onNext: Consumer<Result>? = Consumer {  },

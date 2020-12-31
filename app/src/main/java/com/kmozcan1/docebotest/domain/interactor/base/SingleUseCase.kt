@@ -18,8 +18,14 @@ import timber.log.Timber
 abstract class SingleUseCase<Results, in Params> : Disposable {
     private val disposables: CompositeDisposable = CompositeDisposable()
 
+    /**
+     * Abstract function where the interactor class calls methods that handle domain logic
+     */
     abstract fun buildObservable(params: Params? = null): Single<Results>
 
+    /**
+     * Builds and subscribes the [Single] object, then adds it to the list of disposables
+     */
     fun execute(params: Params? = null, onSuccess: Consumer<Results> ?= Consumer {  },
                 onError: Consumer<Throwable> ? = Consumer {  }) {
         disposables += buildObservable(params)
@@ -29,8 +35,6 @@ abstract class SingleUseCase<Results, in Params> : Disposable {
             .doOnError(onError)
             .subscribe({}, Timber::w)
     }
-
-
 
     override fun dispose() {
         return disposables.dispose()

@@ -95,6 +95,9 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.11.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.11.0'
 
+    // Java S6 & S7 backport for Date & Time libraries. Needed for Swagger Gradle Codegen generated files
+    implementation 'org.threeten:threetenbp:1.4.0'
+
     // Timber
     implementation "com.jakewharton.timber:timber:4.7.1"
 }

@@ -18,9 +18,9 @@ interface SearchApi {
     @GET("search/users")
     fun searchUsers(
         @Query("q") query: String,
-        @Query("sort") sort: String?,
-        @Query("order") order: String?,
-        @Query("per_page") perPage: Int?,
-        @Query("page") page: String?
+        @Query("sort") sort: String? = null,
+        @Query("order") order: String? = null,
+        @Query("per_page") perPage: Int? = null,
+        @Query("page") page: Int? = null
     ): Single<SearchApiResponse>
 }

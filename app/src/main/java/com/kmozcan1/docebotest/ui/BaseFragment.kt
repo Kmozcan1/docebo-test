@@ -80,6 +80,10 @@ abstract class BaseFragment<DataBindingClass: ViewDataBinding, ViewModelClass: V
 
     }
 
+    internal fun makeToast(toastMessage: String?) {
+        mainActivity.makeToast(toastMessage)
+    }
+
     internal fun getIsConnectedToInternet(): Boolean {
         return mainActivity.isConnectedToInternet
     }
