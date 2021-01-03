@@ -8,19 +8,26 @@ class HomeViewModel @ViewModelInject constructor(
         private val searchUserUseCase: SearchUserUseCase
 ) : BaseViewModel<HomeViewState>() {
 
-    // Calls
-    fun searchUser(userName: String, page: Int = 1) {
+    // Starts observing the SearchUseCase observable. This is called when the user makes a new search
+    fun searchUser(userName: String) {
         setViewState(HomeViewState.loading())
+        searchUserUseCase.dispose()
         searchUserUseCase.execute(
-                params = SearchUserUseCase.Params(userName, page),
-                onSuccess = { userList ->
-                    setViewState(HomeViewState.userSearchResult(userList))
-                },
-                onError = {
-                    onError(it)
-                }
+            params = SearchUserUseCase.Params(userName),
+            onSubscribe = {
+                searchUserUseCase.searchUser()
+            },
+            onNext = { searchResult ->
+                setViewState(HomeViewState.userSearchResult(searchResult))
+            },
+            onError = {
+                onError(it)
+            },
         )
+    }
 
+    fun loadMoreResults() {
+        searchUserUseCase.loadMore()
     }
 
     override fun onError(t: Throwable) {

@@ -13,13 +13,13 @@ class MainViewModel @ViewModelInject constructor(
 
     fun observeInternetConnection() {
         observeInternetConnectionUseCase.execute(
-                onComplete = {},
-                onNext = { isConnected ->
-                    setViewState(MainViewState.connectionChange(isConnected))
-                },
-                onError = {
-                    onError(it)
-                }
+            onComplete = {},
+            onNext = { isConnected ->
+                setViewState(MainViewState.connectionChange(isConnected))
+            },
+            onError = {
+                onError(it)
+            },
         )
     }
 

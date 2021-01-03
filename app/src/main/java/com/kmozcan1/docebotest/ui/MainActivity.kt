@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ActivityMainBinding
+import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
 import com.kmozcan1.docebotest.presentation.viewmodel.MainViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.MainViewState
 import com.kmozcan1.docebotest.presentation.viewstate.MainViewState.State.*
@@ -20,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
-
 
     var isConnectedToInternet: Boolean = false
         private set

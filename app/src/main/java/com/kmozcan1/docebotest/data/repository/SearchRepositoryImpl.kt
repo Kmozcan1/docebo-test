@@ -14,19 +14,14 @@ import javax.inject.Inject
 class SearchRepositoryImpl @Inject constructor(
         private val searchApi: SearchApi
 ) : SearchRepository {
-
-    companion object {
-        private const val PER_PAGE = 25
-    }
-
     /**
      * Returns a [Single] object that emits the result returned by the [SearchApi.searchUsers] method
      */
-    override fun searchUser(userName: String, page: Int): Single<List<UserSearchResult>> {
+    override fun searchUser(userName: String, page: Int, perPage: Int): Single<List<UserSearchResult>> {
         return searchApi.searchUsers(
                 query = userName,
                 page = page,
-                perPage = PER_PAGE
+                perPage = perPage
         ).map { response ->
             response.items
         }

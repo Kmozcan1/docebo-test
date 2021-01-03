@@ -50,6 +50,9 @@ abstract class BaseFragment<DataBindingClass: ViewDataBinding, ViewModelClass: V
     // Called just before onCreateView is finished
     abstract fun onViewBound()
 
+    // Called just before onActivityCreated is finished
+    abstract fun observeLiveDate()
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -64,6 +67,7 @@ abstract class BaseFragment<DataBindingClass: ViewDataBinding, ViewModelClass: V
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(getViewModelClass())
+        observeLiveDate()
     }
 
     open fun onInternetConnected() { }

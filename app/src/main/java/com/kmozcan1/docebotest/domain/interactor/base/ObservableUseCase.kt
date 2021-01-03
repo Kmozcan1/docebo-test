@@ -1,7 +1,9 @@
 package com.kmozcan1.docebotest.domain.interactor.base
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -14,7 +16,7 @@ import timber.log.Timber
  * Base class for interactors that return [Observable] objects
  * */
 abstract class ObservableUseCase<Result, in Params> : Disposable {
-    private lateinit var disposable: Disposable
+    private var disposables = CompositeDisposable()
 
     /**
      * Abstract function where the interactor class calls methods that handle domain logic
@@ -24,24 +26,30 @@ abstract class ObservableUseCase<Result, in Params> : Disposable {
     /**
      * Builds and subscribes the [Observable] object, then adds it to the list of disposables
      */
-    fun execute(params: Params? = null,
-                onComplete: () -> Unit = { },
-                onNext: Consumer<Result>? = Consumer {  },
-                onError: Consumer<Throwable>? = Consumer {  }) {
-        disposable = buildObservable(params)
+    fun execute(
+        params: Params? = null,
+        onComplete: () -> Unit = { },
+        onNext: Consumer<Result>? = Consumer { },
+        onError: Consumer<Throwable>? = Consumer { },
+        onSubscribe: Consumer<in Disposable>? = Consumer { }
+    ) {
+        val disposable = buildObservable(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe(onSubscribe)
             .doOnNext(onNext)
             .doOnComplete(onComplete)
             .doOnError(onError)
             .subscribe({}, Timber::w)
+        disposables.add(disposable)
     }
 
     override fun dispose() {
-        return disposable.dispose()
+        disposables.dispose()
+        disposables = CompositeDisposable()
     }
 
     override fun isDisposed(): Boolean {
-        return disposable.isDisposed
+        return disposables.isDisposed
     }
 }
