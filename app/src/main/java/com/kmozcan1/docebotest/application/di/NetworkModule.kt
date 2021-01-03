@@ -2,6 +2,7 @@ package com.kmozcan1.docebotest.application.di
 
 import com.kmozcan1.docebotest.BuildConfig
 import com.kmozcan1.docebotest.data.api.SearchApi
+import com.kmozcan1.docebotest.data.api.UsersApi
 import com.kmozcan1.docebotest.data.tools.GeneratedCodeConverters
 import dagger.Module
 import dagger.Provides
@@ -78,6 +79,14 @@ object NetworkModule {
         retrofit: Retrofit
     ): SearchApi {
         return retrofit.create(SearchApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUsersApi(
+        retrofit: Retrofit
+    ): UsersApi {
+        return retrofit.create(UsersApi::class.java)
     }
 
 }

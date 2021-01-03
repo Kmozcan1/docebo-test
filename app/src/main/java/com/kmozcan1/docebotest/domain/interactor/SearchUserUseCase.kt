@@ -2,13 +2,10 @@ package com.kmozcan1.docebotest.domain.interactor
 
 import com.kmozcan1.docebotest.domain.interactor.base.ObservableUseCase
 import com.kmozcan1.docebotest.domain.mapper.SearchResultMapper
-import com.kmozcan1.docebotest.domain.model.UserListItem
-import com.kmozcan1.docebotest.domain.model.UserSearchResult
+import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
 import com.kmozcan1.docebotest.domain.repository.SearchRepository
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
-import io.reactivex.rxjava3.subjects.ReplaySubject
 import javax.inject.Inject
 
 /**
@@ -17,7 +14,7 @@ import javax.inject.Inject
 class SearchUserUseCase @Inject constructor(
         private val searchRepository: SearchRepository,
         private val searchResultMapper: SearchResultMapper
-): ObservableUseCase<UserSearchResult, SearchUserUseCase.Params>() {
+): ObservableUseCase<UserSearchResultModel, SearchUserUseCase.Params>() {
     data class Params(val userName: String)
 
     companion object {
@@ -28,12 +25,12 @@ class SearchUserUseCase @Inject constructor(
 
     private lateinit var userName: String
 
-    private val userListSubject: PublishSubject<UserSearchResult> by lazy {
+    private val userListSubject: PublishSubject<UserSearchResultModel> by lazy {
         PublishSubject.create()
     }
 
     // Makes the initial search after ViewModel calls the execute function of ObservableUseCase
-    override fun buildObservable(params: Params?): Observable<UserSearchResult> {
+    override fun buildObservable(params: Params?): Observable<UserSearchResultModel> {
         page = 1
         userName = params!!.userName
         return userListSubject
@@ -53,11 +50,11 @@ class SearchUserUseCase @Inject constructor(
         }.doOnSuccess { userList ->
             // If the list size is smaller than PER_PAGE, it means there are no more results left
             if (userList.size < PER_PAGE) {
-                userListSubject.onNext(UserSearchResult(userList, true))
+                userListSubject.onNext(UserSearchResultModel(userList, true))
                 // Complete on the last page in order to dispose of the observer
                 userListSubject.onComplete()
             } else {
-                userListSubject.onNext(UserSearchResult(userList, false))
+                userListSubject.onNext(UserSearchResultModel(userList, false))
             }
         }.subscribe({}, { t ->
             if (!isDisposed) {

@@ -21,9 +21,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         fun newInstance() = HomeFragment()
     }
 
+    private val userListCallbackListener = userListCallbackListener()
+
     // RecyclerView Adapter
     private val userListAdapter: UserListAdapter by lazy {
-        UserListAdapter(mutableListOf())
+        UserListAdapter(mutableListOf(), userListCallbackListener)
     }
 
     override fun layoutId(): Int = R.layout.home_fragment
@@ -31,8 +33,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
 
     override fun onViewBound() {
-        binding.homeFragment = this
-
         setToolbar()
 
         setUserList()
@@ -40,8 +40,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     // Sets the toolbar with options menu
     private fun setToolbar() {
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        appCompatActivity.setSupportActionBar(binding.toolbar)
+        binding.homeToolbar.setupWithNavController(navController, appBarConfiguration)
+        appCompatActivity.setSupportActionBar(binding.homeToolbar)
         appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
         setHasOptionsMenu(true)
     }
@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
             userListAdapter
         )
 
-        binding.userListView.setCallbackListener(userListCallbackListener())
+        binding.userListView.setCallbackListener(userListCallbackListener)
     }
 
     override fun observeLiveDate() {
@@ -80,6 +80,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         override fun onPaginatedListFinalItemVisible() {
             binding.userListView.showProgressBar(true)
             viewModel.loadMoreResults()
+        }
+
+        override fun onPaginatedListItemClick(userName: String) {
+            navController.navigate(R.id.action_homeFragment_to_userViewPagerFragment)
         }
     }
 

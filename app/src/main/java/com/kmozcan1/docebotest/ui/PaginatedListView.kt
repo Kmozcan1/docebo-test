@@ -96,6 +96,7 @@ class PaginatedListView : ConstraintLayout {
      */
     interface CallbackListener {
         fun onPaginatedListFinalItemVisible()
+        fun onPaginatedListItemClick(userName: String)
     }
 
 }

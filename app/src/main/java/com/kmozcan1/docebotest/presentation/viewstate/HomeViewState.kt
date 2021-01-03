@@ -1,7 +1,6 @@
 package com.kmozcan1.docebotest.presentation.viewstate
 
-import com.kmozcan1.docebotest.domain.model.UserListItem
-import com.kmozcan1.docebotest.domain.model.UserSearchResult
+import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
 
 
 /**
@@ -10,7 +9,7 @@ import com.kmozcan1.docebotest.domain.model.UserSearchResult
 data class HomeViewState (
     val state: State,
     val errorMessage: String? = null,
-    val userSearchResult: UserSearchResult? = null
+    val userSearchResult: UserSearchResultModel? = null
 ) {
     companion object {
         fun error(e: Throwable): HomeViewState = HomeViewState(
@@ -22,7 +21,7 @@ data class HomeViewState (
             state = State.LOADING
         )
 
-        fun userSearchResult(searchResult: UserSearchResult): HomeViewState = HomeViewState(
+        fun userSearchResult(searchResult: UserSearchResultModel): HomeViewState = HomeViewState(
             state = State.SEARCH_RESULT,
             userSearchResult = searchResult
         )
