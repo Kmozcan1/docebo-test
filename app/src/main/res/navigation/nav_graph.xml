@@ -14,5 +14,9 @@
     <fragment
         android:id="@+id/userViewPagerFragment"
         android:name="com.kmozcan1.docebotest.ui.UserViewPagerFragment"
-        android:label="UserViewPagerFragment" />
+        android:label="UserViewPagerFragment" >
+        <argument
+            android:name="userName"
+            app:argType="string" />
+    </fragment>
 </navigation>

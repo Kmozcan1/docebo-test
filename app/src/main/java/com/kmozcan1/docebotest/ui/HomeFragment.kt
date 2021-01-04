@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.HomeFragmentBinding
 import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
-import com.kmozcan1.docebotest.presentation.setAdapter
 import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +82,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         }
 
         override fun onPaginatedListItemClick(userName: String) {
-            navController.navigate(R.id.action_homeFragment_to_userViewPagerFragment)
+            val navAction =  HomeFragmentDirections
+                    .actionHomeFragmentToUserViewPagerFragment(userName)
+            navController.navigate(navAction)
         }
     }
 

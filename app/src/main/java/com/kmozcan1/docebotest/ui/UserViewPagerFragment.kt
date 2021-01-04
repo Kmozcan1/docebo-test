@@ -5,6 +5,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -26,6 +27,8 @@ class UserViewPagerFragment : Fragment() {
     lateinit var userViewPagerAdapter: UserViewPagerAdapter
 
     lateinit var binding: UserViewPagerFragmentBinding
+
+    val args: UserViewPagerFragmentArgs by navArgs()
 
     private val appCompatActivity: AppCompatActivity by lazy {
         activity as AppCompatActivity
@@ -54,7 +57,7 @@ class UserViewPagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewPagerAdapter = UserViewPagerAdapter(this)
+        userViewPagerAdapter = UserViewPagerAdapter(this, args.userName)
         viewPager = binding.userPager
         viewPager.adapter = userViewPagerAdapter
 
@@ -72,7 +75,7 @@ class UserViewPagerFragment : Fragment() {
         appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appCompatActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
         binding.profileToolbar.setNavigationOnClickListener { navController.navigateUp() }
-        binding.profileToolbar.title = "kmozcan1"
+        binding.profileToolbar.title = args.userName
         setHasOptionsMenu(true)
     }
 

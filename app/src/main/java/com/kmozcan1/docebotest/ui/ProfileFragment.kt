@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ProfileFragmentBinding
+import com.kmozcan1.docebotest.presentation.ArgConstants.USER_NAME_ARG
 import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
 import com.kmozcan1.docebotest.presentation.viewmodel.ProfileViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
@@ -23,16 +24,23 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
         fun newInstance() = ProfileFragment()
     }
 
+    lateinit var userName: String
+
     override fun layoutId() = R.layout.profile_fragment
 
     override fun getViewModelClass(): Class<ProfileViewModel> = ProfileViewModel::class.java
 
     override fun onViewBound() {
+        arguments?.takeIf {
+            it.containsKey(USER_NAME_ARG)
+        }?.apply {
+            userName = getString(USER_NAME_ARG).toString()
+        }
     }
 
     override fun observeLiveDate() {
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
-        viewModel.getUserProfile("kmozcan1")
+        viewModel.getUserProfile(userName)
     }
 
     private fun viewStateObserver() = Observer<ProfileViewState> { viewState ->
