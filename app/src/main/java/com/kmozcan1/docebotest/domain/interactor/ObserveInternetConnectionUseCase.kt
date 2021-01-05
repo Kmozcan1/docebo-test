@@ -7,6 +7,8 @@ import javax.inject.Inject
 
 /**
  * Created by Kadir Mert Özcan on 29-Dec-20.
+ *
+ * UseCase class that emits the changes in Internet state provided by [InternetManager]
  */
 class ObserveInternetConnectionUseCase @Inject constructor(
         private val internetManager: InternetManager

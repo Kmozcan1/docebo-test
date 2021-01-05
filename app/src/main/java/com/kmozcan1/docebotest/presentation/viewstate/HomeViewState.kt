@@ -1,29 +1,35 @@
 package com.kmozcan1.docebotest.presentation.viewstate
 
+import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
+
 
 /**
  * Created by Kadir Mert Özcan on 29-Dec-20.
  */
 data class HomeViewState (
-    val isLoading: Boolean = false,
-    val hasError: Boolean = false,
+    val state: State,
     val errorMessage: String? = null,
-    val isSuccess: Boolean = false,
-    val userName: String? = null,
-    val hasUserProfile: Boolean = false
+    val userSearchResult: UserSearchResultModel? = null
 ) {
     companion object {
-        fun onSuccess() : HomeViewState = HomeViewState(
-                hasError = false,
-                isLoading = false,
-                isSuccess = true
+        fun error(e: Throwable): HomeViewState = HomeViewState(
+            state = State.ERROR,
+            errorMessage = e.message
         )
 
-        fun onError(e: Throwable): HomeViewState = HomeViewState(
-                hasError = true,
-                errorMessage = e.message
+        fun loading(): HomeViewState = HomeViewState(
+            state = State.LOADING
+        )
+
+        fun userSearchResult(searchResult: UserSearchResultModel): HomeViewState = HomeViewState(
+            state = State.SEARCH_RESULT,
+            userSearchResult = searchResult
         )
     }
 
-
+    enum class State {
+        ERROR,
+        LOADING,
+        SEARCH_RESULT
+    }
 }

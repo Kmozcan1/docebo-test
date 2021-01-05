@@ -3,6 +3,8 @@
     package="com.kmozcan1.docebotest">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name = ".application.DoceboTestApplication"
         android:allowBackup="true"
@@ -12,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoceboTest">
         <activity
-            android:name=".ui.MainActivity"
-            android:launchMode="singleTop">
+            android:name="com.kmozcan1.docebotest.presentation.ui.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

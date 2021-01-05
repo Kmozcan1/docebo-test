@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import com.kmozcan1.docebotest.R
 import javax.inject.Inject
 
 /**
@@ -50,6 +47,9 @@ abstract class BaseFragment<DataBindingClass: ViewDataBinding, ViewModelClass: V
     // Called just before onCreateView is finished
     abstract fun onViewBound()
 
+    // Called just before onActivityCreated is finished
+    abstract fun observeLiveDate()
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -64,6 +64,7 @@ abstract class BaseFragment<DataBindingClass: ViewDataBinding, ViewModelClass: V
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(getViewModelClass())
+        observeLiveDate()
     }
 
     open fun onInternetConnected() { }
@@ -78,6 +79,10 @@ abstract class BaseFragment<DataBindingClass: ViewDataBinding, ViewModelClass: V
             mainActivity.supportActionBar?.hide()
         }
 
+    }
+
+    internal fun makeToast(toastMessage: String?) {
+        mainActivity.makeToast(toastMessage)
     }
 
     internal fun getIsConnectedToInternet(): Boolean {

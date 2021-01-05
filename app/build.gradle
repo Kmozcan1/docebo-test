@@ -1,10 +1,10 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-parcelize'
-    id 'org.hidetake.swagger.generator' version '2.18.2'
+ plugins {
+     id 'com.android.application'
+     id 'kotlin-android'
+     id 'kotlin-kapt'
+     id 'dagger.hilt.android.plugin'
+     id 'kotlin-parcelize'
+     id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -56,6 +56,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -95,16 +96,15 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.11.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.11.0'
 
+    // Java S6 & S7 backport for Date & Time libraries. Needed for Swagger Gradle Codegen generated files
+    implementation 'org.threeten:threetenbp:1.4.0'
+
     // Timber
     implementation "com.jakewharton.timber:timber:4.7.1"
-}
 
-swaggerSources {
-    github {
-        inputFile = file('api.github.com.yaml')
-        code {
-            language = 'kotlin'
-            rawOptions = ["--ignore-file-override=.swagger-codegen-ignore"]
-        }
-    }
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
 }

@@ -1,25 +1,22 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ActivityMainBinding
 import com.kmozcan1.docebotest.presentation.viewmodel.MainViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.MainViewState
+import com.kmozcan1.docebotest.presentation.viewstate.MainViewState.State.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
-
 
     var isConnectedToInternet: Boolean = false
         private set
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.mainViewState.observe(this, observeViewState())
+        viewModel.viewState.observe(this, observeViewState())
         viewModel.observeInternetConnection()
 
         /*val toolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.coll)
@@ -45,11 +42,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewState() = Observer<MainViewState> { viewState ->
-        when {
-            viewState.hasError -> {
+        when (viewState.state) {
+            ERROR -> {
                 makeToast(viewState.errorMessage)
             }
-            viewState.onConnectionChange -> {
+            CONNECTION_CHANGE -> {
                 val baseFragment = supportFragmentManager.fragments.first()?.childFragmentManager?.fragments?.get(0) as BaseFragment<*, *>
                 isConnectedToInternet = viewState.isConnected
                 if (viewState.isConnected) {
@@ -58,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                     baseFragment.onInternetDisconnected()
                 }
             }
+            LOADING -> TODO()
         }
     }
 

@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

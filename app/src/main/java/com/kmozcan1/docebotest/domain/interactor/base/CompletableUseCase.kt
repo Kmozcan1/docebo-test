@@ -17,8 +17,14 @@ import timber.log.Timber
 abstract class CompletableUseCase<in Params> : Disposable {
     private val disposables: CompositeDisposable = CompositeDisposable()
 
+    /**
+     * Abstract function where the interactor class calls methods that handle domain logic
+     */
     abstract fun buildObservable(params: Params? = null): Completable
 
+    /**
+     * Builds and subscribes the [Completable] object, then adds it to the list of disposables
+     */
     fun execute(params: Params? = null, onComplete: () -> Unit = {}, onError: Consumer<Throwable>? = null) {
         disposables += buildObservable(params)
             .subscribeOn(Schedulers.io())
