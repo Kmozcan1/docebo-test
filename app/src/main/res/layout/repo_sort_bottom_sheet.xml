@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.kmozcan1.docebotest.domain.enums.SortType"/>
+        <variable name="repositoriesFragment" type="com.kmozcan1.docebotest.presentation.ui.RepositoriesFragment"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="@style/Theme.MaterialComponents.BottomSheetDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -12,6 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="@string/alphabetical"
+            android:onClick="@{() -> repositoriesFragment.onBottomSheetButtonClick(SortType.ALPHABETIC)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +31,7 @@
             android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="@string/create_date"
+            android:onClick="@{() -> repositoriesFragment.onBottomSheetButtonClick(SortType.CREATE_DATE)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sortAlphaButton" />
@@ -34,6 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="@string/push_date"
+            android:onClick="@{() -> repositoriesFragment.onBottomSheetButtonClick(SortType.PUSH_DATE)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sortCreateButton" />
@@ -45,6 +55,7 @@
             android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="@string/last_updated"
+            android:onClick="@{() -> repositoriesFragment.onBottomSheetButtonClick(SortType.LAST_UPDATED)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

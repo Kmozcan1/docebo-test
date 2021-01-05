@@ -1,6 +1,8 @@
 package com.kmozcan1.docebotest.domain.interactor
 
 import com.kmozcan1.docebotest.domain.DomainConstants.PER_PAGE
+import com.kmozcan1.docebotest.domain.enums.SortDirection
+import com.kmozcan1.docebotest.domain.enums.SortType
 import com.kmozcan1.docebotest.domain.interactor.base.ObservableUseCase
 import com.kmozcan1.docebotest.domain.mapper.RepositoryMapper
 import com.kmozcan1.docebotest.domain.model.RepositoriesResultModel
@@ -17,8 +19,8 @@ class GetUserRepositoriesUseCase @Inject constructor(
         private val repositoryMapper: RepositoryMapper
 ): ObservableUseCase<RepositoriesResultModel, GetUserRepositoriesUseCase.Params>() {
     data class Params(val userName: String,
-                      val sort: String = "",
-                      val sortDirection: String = "")
+                      val sortType: SortType = SortType.ALPHABETIC,
+                      val sortDirection: SortDirection = SortDirection.ASCENDING)
 
     private var page: Int = 0
 
@@ -26,18 +28,17 @@ class GetUserRepositoriesUseCase @Inject constructor(
     private lateinit var sort: String
     private lateinit var sortDirection: String
 
-    private val repositoryListSubject: PublishSubject<RepositoriesResultModel> by lazy {
-        PublishSubject.create()
-    }
+    private lateinit var repositoryListSubject: PublishSubject<RepositoriesResultModel>
 
     // Makes the initial search and subscribes the observable
     // after ViewModel calls the execute function of ObservableUseCase
     override fun buildObservable(params: Params?): Observable<RepositoriesResultModel> {
+        repositoryListSubject = PublishSubject.create()
         page = 1
         params?.let {
             userName = it.userName
-            sort = it.sort
-            sortDirection = it.sortDirection
+            sort = it.sortType.stringValue
+            sortDirection = it.sortDirection.stringValue
         }
         return repositoryListSubject
     }

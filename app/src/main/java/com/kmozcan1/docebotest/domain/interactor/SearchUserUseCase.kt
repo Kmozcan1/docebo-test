@@ -22,13 +22,12 @@ class SearchUserUseCase @Inject constructor(
 
     private lateinit var userName: String
 
-    private val userListSubject: PublishSubject<UserSearchResultModel> by lazy {
-        PublishSubject.create()
-    }
+    private lateinit var userListSubject: PublishSubject<UserSearchResultModel>
 
     // Makes the initial search and subscribes the observable
     // after ViewModel calls the execute function of ObservableUseCase
     override fun buildObservable(params: Params?): Observable<UserSearchResultModel> {
+        userListSubject = PublishSubject.create()
         page = 1
         userName = params!!.userName
         return userListSubject

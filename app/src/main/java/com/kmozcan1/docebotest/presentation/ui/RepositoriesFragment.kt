@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.RepositoriesFragmentBinding
+import com.kmozcan1.docebotest.domain.enums.SortDirection
+import com.kmozcan1.docebotest.domain.enums.SortType
 import com.kmozcan1.docebotest.presentation.ArgConstants
 import com.kmozcan1.docebotest.presentation.adapter.RepositoryListAdapter
-import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
 import com.kmozcan1.docebotest.presentation.viewmodel.RepositoriesViewModel
-import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState
 import com.kmozcan1.docebotest.presentation.viewstate.RepositoriesViewState
 import com.kmozcan1.docebotest.presentation.viewstate.RepositoriesViewState.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,10 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         fun newInstance() = RepositoriesFragment()
     }
 
+    // Fetch parameters
     private lateinit var userName: String
+    private var sortType = SortType.ALPHABETIC
+    private var sortDirection = SortDirection.ASCENDING
 
     private val repositoryListCallbackListener = repositoryListCallbackListener()
 
@@ -32,13 +35,17 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         RepositoryListAdapter(mutableListOf(), repositoryListCallbackListener)
     }
 
+    private val sortBottomSheetFragment: RepoSortBottomSheetFragment by lazy {
+        RepoSortBottomSheetFragment()
+    }
+
     override fun layoutId() = R.layout.repositories_fragment
 
     override fun getViewModelClass(): Class<RepositoriesViewModel> =
         RepositoriesViewModel::class.java
 
     override fun onViewBound() {
-        binding.repositoriesFragment = this
+        binding.repositoriesFragmentBinding = this
 
         // Gets user name from bundle
         arguments?.takeIf {
@@ -65,7 +72,7 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
     override fun observeLiveDate() {
         // Observes the ViewState
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
-        viewModel.getRepositories(userName)
+        getRepositories()
     }
 
     // Returns paginated list callback listener object
@@ -96,7 +103,6 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
                     }
                 }
             }
-
             State.ERROR -> {
                 makeToast(viewState.errorMessage)
             }
@@ -107,11 +113,54 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
     }
 
     fun onSortButtonClick(v: View) {
-        activity?.supportFragmentManager?.let {
-            val fragment = SortBottomSheetFragment()
-            fragment.arguments = Bundle().apply {
-                fragment.show(it, tag)
+        sortBottomSheetFragment.arguments = Bundle().apply {
+            sortBottomSheetFragment.show(childFragmentManager, tag)
+        }
+    }
+
+    fun orSortDirectionButtonClick(button: View) {
+        when (sortDirection) {
+            SortDirection.ASCENDING -> {
+                sortDirection = SortDirection.DESCENDING
+                (button as MaterialButton).setIconResource(R.drawable.ic_sort_descending)
+            }
+            SortDirection.DESCENDING -> {
+                sortDirection = SortDirection.ASCENDING
+                (button as MaterialButton).setIconResource(R.drawable.ic_sort_ascending)
             }
         }
+        getRepositories()
+    }
+
+    fun onBottomSheetButtonClick(sortType: SortType) {
+        // closes the bottom sheet fragment
+        sortBottomSheetFragment.dismiss()
+
+        sortType.let {
+            this.sortType = it
+            // Sets the sortTypeButton text depending on the chosen option
+            when(it) {
+                SortType.ALPHABETIC -> {
+                    binding.sortTypeButton.text = getString(R.string.alphabetical)
+                }
+                SortType.CREATE_DATE -> {
+                    binding.sortTypeButton.text = getString(R.string.create_date)
+                }
+                SortType.PUSH_DATE -> {
+                    binding.sortTypeButton.text = getString(R.string.push_date)
+                }
+                SortType.LAST_UPDATED -> {
+                    binding.sortTypeButton.text = getString(R.string.last_updated)
+                }
+            }
+        }
+
+        getRepositories()
+    }
+
+    // Clears the previous list and fetches the repositories with chosen parameters
+    private fun getRepositories() {
+        repositoryListAdapter.clearRepositoryList()
+        viewModel.getRepositories(userName, sortType, sortDirection)
     }
 }

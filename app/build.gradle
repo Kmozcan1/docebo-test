@@ -23,9 +23,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildFeatures {
-            viewBinding true
-        }
+        android.buildFeatures.dataBinding true
     }
 
     buildTypes {
@@ -41,9 +39,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled = true
-    }
+    android.buildFeatures.dataBinding true
 }
 
 dependencies {
