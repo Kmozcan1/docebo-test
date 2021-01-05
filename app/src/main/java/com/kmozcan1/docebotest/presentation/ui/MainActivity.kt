@@ -1,18 +1,14 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ActivityMainBinding
-import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
 import com.kmozcan1.docebotest.presentation.viewmodel.MainViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.MainViewState
 import com.kmozcan1.docebotest.presentation.viewstate.MainViewState.State.*

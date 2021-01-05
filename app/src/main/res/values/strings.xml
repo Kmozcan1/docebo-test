@@ -10,4 +10,8 @@
     <string name="email_label">Email:</string>
     <string name="location_label">Location:</string>
     <string name="profile_url_label">Profile Url:</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="create_date">Create Date</string>
+    <string name="push_date">Push Date</string>
+    <string name="last_updated">Last Updated</string>
 </resources>

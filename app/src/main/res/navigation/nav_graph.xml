@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.kmozcan1.docebotest.ui.HomeFragment"
+        android:name="com.kmozcan1.docebotest.presentation.ui.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_userViewPagerFragment"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/userViewPagerFragment"
-        android:name="com.kmozcan1.docebotest.ui.UserViewPagerFragment"
+        android:name="com.kmozcan1.docebotest.presentation.ui.UserViewPagerFragment"
         android:label="UserViewPagerFragment" >
         <argument
             android:name="userName"

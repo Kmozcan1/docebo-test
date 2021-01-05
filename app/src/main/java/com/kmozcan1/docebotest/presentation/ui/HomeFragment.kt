@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,6 +11,7 @@ import com.kmozcan1.docebotest.databinding.HomeFragmentBinding
 import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
 import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
+import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,15 +48,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     // Sets the paginated list adapter and callback listener
     private fun setUserList() {
-        binding.userListView.setAdapter(
-            LinearLayoutManager(context),
-            userListAdapter
-        )
+        with(binding) {
+            userListView.setAdapter(
+                LinearLayoutManager(context),
+                userListAdapter
+            )
 
-        binding.userListView.setCallbackListener(userListCallbackListener)
+            userListView.setCallbackListener(userListCallbackListener)
+        }
     }
 
     override fun observeLiveDate() {
+        // Observes the ViewState
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
     }
 
@@ -76,6 +80,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     // Returns paginated list callback listener object
     private fun userListCallbackListener() = object : PaginatedListView.CallbackListener {
+        // Loads more results when the final item has been reached
+        // (only invoked if finalPage = false)
         override fun onPaginatedListFinalItemVisible() {
             binding.userListView.showProgressBar(true)
             viewModel.loadMoreResults()
@@ -91,19 +97,21 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     // Returns ViewState Observer object
     private fun viewStateObserver() = Observer<HomeViewState> { viewState ->
         when (viewState.state) {
-            HomeViewState.State.SEARCH_RESULT -> {
-                // Hide progress bar
-                binding.userListView.showProgressBar(false)
-                with(viewState.userSearchResult!!) {
-                    userListAdapter.addSearchResult(userList)
-                    binding.userListView.onFinalPage = finalPage
+            State.SEARCH_RESULT -> {
+                with(binding.userListView) {
+                    // Hides the progress bar at the end of the paginated list
+                    showProgressBar(false)
+                    // Add results
+                    viewState.userSearchResult?.let { searchResult ->
+                        userListAdapter.addSearchResult(searchResult.userList)
+                        onFinalPage = searchResult.finalPage
+                    }
                 }
-
             }
-            HomeViewState.State.ERROR -> {
+            State.ERROR -> {
                 makeToast(viewState.errorMessage)
             }
-            HomeViewState.State.LOADING -> {
+            State.LOADING -> {
                 makeToast("LOADING")
             }
         }

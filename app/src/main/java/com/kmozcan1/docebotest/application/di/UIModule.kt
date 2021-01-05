@@ -1,16 +1,9 @@
 package com.kmozcan1.docebotest.application.di
 
-import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import com.kmozcan1.docebotest.R
-import com.kmozcan1.docebotest.presentation.adapter.UserViewPagerAdapter
-import com.kmozcan1.docebotest.ui.MainActivity
-import com.kmozcan1.docebotest.ui.UserViewPagerFragment
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

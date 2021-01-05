@@ -1,5 +1,6 @@
 package com.kmozcan1.docebotest.domain.interactor
 
+import com.kmozcan1.docebotest.domain.DomainConstants.PER_PAGE
 import com.kmozcan1.docebotest.domain.interactor.base.ObservableUseCase
 import com.kmozcan1.docebotest.domain.mapper.SearchResultMapper
 import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
@@ -17,10 +18,6 @@ class SearchUserUseCase @Inject constructor(
 ): ObservableUseCase<UserSearchResultModel, SearchUserUseCase.Params>() {
     data class Params(val userName: String)
 
-    companion object {
-        private const val PER_PAGE = 25
-    }
-
     private var page: Int = 0
 
     private lateinit var userName: String
@@ -29,7 +26,8 @@ class SearchUserUseCase @Inject constructor(
         PublishSubject.create()
     }
 
-    // Makes the initial search after ViewModel calls the execute function of ObservableUseCase
+    // Makes the initial search and subscribes the observable
+    // after ViewModel calls the execute function of ObservableUseCase
     override fun buildObservable(params: Params?): Observable<UserSearchResultModel> {
         page = 1
         userName = params!!.userName
@@ -43,7 +41,9 @@ class SearchUserUseCase @Inject constructor(
     }
 
     fun searchUser() {
+        // Calls repository method to fetch the users
         searchRepository.searchUser(userName, page, PER_PAGE).map { searchResultList ->
+            // Maps each api model in the list to domain model
             searchResultList.map { searchResult ->
                 searchResultMapper.map(searchResult)
             }

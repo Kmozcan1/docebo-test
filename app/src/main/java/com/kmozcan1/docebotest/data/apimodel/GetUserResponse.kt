@@ -6,6 +6,8 @@ import org.threeten.bp.LocalDateTime
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.
+ *
+ * Response data class for [com.kmozcan1.docebotest.data.api.UsersApi.getUser]
  */
 @JsonClass(generateAdapter = true)
 data class GetUserResponse(

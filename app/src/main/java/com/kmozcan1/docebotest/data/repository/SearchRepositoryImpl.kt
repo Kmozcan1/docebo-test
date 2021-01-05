@@ -1,7 +1,7 @@
 package com.kmozcan1.docebotest.data.repository
 
 import com.kmozcan1.docebotest.data.api.SearchApi
-import com.kmozcan1.docebotest.data.apimodel.UserSearchResult
+import com.kmozcan1.docebotest.data.apimodel.UserSearchApiModel
 import com.kmozcan1.docebotest.domain.repository.SearchRepository
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class SearchRepositoryImpl @Inject constructor(
     /**
      * Returns a [Single] object that emits the result returned by the [SearchApi.searchUsers] method
      */
-    override fun searchUser(userName: String, page: Int, perPage: Int): Single<List<UserSearchResult>> {
+    override fun searchUser(userName: String, page: Int, perPage: Int): Single<List<UserSearchApiModel>> {
         return searchApi.searchUsers(
                 query = userName,
                 page = page,

@@ -2,41 +2,36 @@ package com.kmozcan1.docebotest.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.kmozcan1.docebotest.BR
-import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.UserListItemBinding
-import com.kmozcan1.docebotest.domain.model.UserListItem
-import com.kmozcan1.docebotest.presentation.bindingInflate
-import com.kmozcan1.docebotest.ui.PaginatedListView
+import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
+import com.kmozcan1.docebotest.presentation.ui.PaginatedListView
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.
  */
-class UserListAdapter(private val userList: MutableList<UserListItem>,
+class UserListAdapter(private val userList: MutableList<UserSearchItemModel>,
                       private val callbackListener: PaginatedListView.CallbackListener):
         RecyclerView.Adapter<UserListAdapter.UserListItemViewHolder>() {
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListItemViewHolder {
-        val binding = UserListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        // Inflate with data binding
+        val binding = UserListItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
         return UserListItemViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: UserListItemViewHolder, position: Int) {
+        with(userList[position]) {
+            holder.bind(userName, avatarUrl)
+        }
     }
 
     override fun getItemCount(): Int {
         return userList.size
     }
 
-    override fun onBindViewHolder(holder: UserListItemViewHolder, position: Int) {
-        holder.bind(
-            userList[position].userName,
-            userList[position].avatarUrl
-        )
-
-    }
-
+    // Binds the username, avatarUrl and callback listener
     inner class UserListItemViewHolder(
         private val binding: UserListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -47,12 +42,14 @@ class UserListAdapter(private val userList: MutableList<UserListItem>,
         }
     }
 
-    fun addSearchResult(searchResult: List<UserListItem>) {
+    // Adds a new batch of search results to the RecyclerView
+    fun addSearchResult(searchResult: List<UserSearchItemModel>) {
         val startPosition = itemCount
         userList.addAll(searchResult)
         notifyItemRangeInserted(startPosition, searchResult.size)
     }
 
+    // Clears the RecyclerView data
     fun clearSearchResults() {
         userList.clear()
         notifyDataSetChanged()

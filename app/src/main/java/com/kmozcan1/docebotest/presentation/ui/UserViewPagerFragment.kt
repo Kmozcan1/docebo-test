@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
 import android.os.Bundle
 import android.view.*
@@ -22,13 +22,18 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserViewPagerFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = UserViewPagerFragment()
+    }
+
     private lateinit var viewPager: ViewPager2
 
     lateinit var userViewPagerAdapter: UserViewPagerAdapter
 
     lateinit var binding: UserViewPagerFragmentBinding
 
-    val args: UserViewPagerFragmentArgs by navArgs()
+    private val args: UserViewPagerFragmentArgs by navArgs()
 
     private val appCompatActivity: AppCompatActivity by lazy {
         activity as AppCompatActivity

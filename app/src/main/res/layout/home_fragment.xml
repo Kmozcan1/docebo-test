@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.HomeFragment">
+        tools:context=".presentation.ui.HomeFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/homeToolbar"
@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.kmozcan1.docebotest.ui.PaginatedListView
+        <com.kmozcan1.docebotest.presentation.ui.PaginatedListView
             android:id="@+id/userListView"
             android:layout_width="0dp"
             android:layout_height="0dp"

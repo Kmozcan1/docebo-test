@@ -2,12 +2,11 @@ package com.kmozcan1.docebotest.presentation.adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kmozcan1.docebotest.presentation.ArgConstants.USER_NAME_ARG
-import com.kmozcan1.docebotest.ui.ProfileFragment
-import com.kmozcan1.docebotest.ui.RepositoriesFragment
-import com.kmozcan1.docebotest.ui.UserViewPagerFragment
+import com.kmozcan1.docebotest.presentation.ui.ProfileFragment
+import com.kmozcan1.docebotest.presentation.ui.RepositoriesFragment
+import com.kmozcan1.docebotest.presentation.ui.UserViewPagerFragment
 import javax.inject.Inject
 
 /**

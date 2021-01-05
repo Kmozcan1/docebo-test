@@ -5,6 +5,6 @@ package com.kmozcan1.docebotest.domain.model
  *
  * Domain model that includes the result list and whether the final page has been reached or not
  */
-data class UserSearchResultModel(
-        val userList: List<UserSearchItemModel>,
+data class RepositoriesResultModel(
+        val repositoryList: List<RepositoryModel>,
         val finalPage: Boolean)

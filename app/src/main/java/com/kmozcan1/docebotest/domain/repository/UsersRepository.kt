@@ -1,7 +1,7 @@
 package com.kmozcan1.docebotest.domain.repository
 
 import com.kmozcan1.docebotest.data.apimodel.GetUserResponse
-import com.kmozcan1.docebotest.data.apimodel.UserSearchResult
+import com.kmozcan1.docebotest.data.apimodel.RepositoryApiModel
 import io.reactivex.rxjava3.core.Single
 
 /**
@@ -9,4 +9,11 @@ import io.reactivex.rxjava3.core.Single
  */
 interface UsersRepository {
     fun getUser(userName: String): Single<GetUserResponse>
+    fun getUserRepositories(
+            userName: String,
+            sort: String = "",
+            direction: String = "",
+            page: Int,
+            perPage: Int
+    ): Single<List<RepositoryApiModel>>
 }

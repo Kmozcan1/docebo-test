@@ -5,9 +5,11 @@ import com.squareup.moshi.JsonClass
 
 /**
  * Created by Kadir Mert Özcan on 28-Dec-20.
+ *
+ * Data class that represents user info fetched after user search, used by [SearchUserResponse]
  */
 @JsonClass(generateAdapter = true)
-data class UserSearchResult(
+data class UserSearchApiModel(
     @Json(name = "login") @field:Json(name = "login") var login: String,
     @Json(name = "id") @field:Json(name = "id") var id: Int,
     @Json(name = "node_id") @field:Json(name = "node_id") var nodeId: String,

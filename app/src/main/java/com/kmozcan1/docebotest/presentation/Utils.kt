@@ -14,17 +14,11 @@ import com.kmozcan1.docebotest.R
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.
+ *
+ * Utilities class for extensions and binding adapters
  */
 
-fun bindingInflate(viewGroup: ViewGroup, @LayoutRes layoutRes: Int) : ViewDataBinding {
-    return DataBindingUtil.inflate(
-        LayoutInflater.from(viewGroup.context),
-        layoutRes,
-        viewGroup,
-        false
-    )
-}
-
+// SetAdapter extension for better code readability
 fun RecyclerView.setAdapter(
     layoutManager: RecyclerView.LayoutManager,
     adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>?
@@ -33,6 +27,7 @@ fun RecyclerView.setAdapter(
     this.adapter = adapter
 }
 
+//
 @BindingAdapter("imageUrl")
 fun setImageUrl(view: ImageView, url: String?) {
     Glide.with(view.context)
@@ -40,3 +35,5 @@ fun setImageUrl(view: ImageView, url: String?) {
         .placeholder(R.drawable.ic_placeholder_avatar)
         .into(view)
 }
+
+

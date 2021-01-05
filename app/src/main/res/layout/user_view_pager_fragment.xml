@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="userViewPagerFragment" type="com.kmozcan1.docebotest.ui.UserViewPagerFragment"/>
+        <variable name="userViewPagerFragment" type="com.kmozcan1.docebotest.presentation.ui.UserViewPagerFragment"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/userPager"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

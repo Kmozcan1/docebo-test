@@ -1,20 +1,13 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.presentation.ui
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ProfileFragmentBinding
 import com.kmozcan1.docebotest.presentation.ArgConstants.USER_NAME_ARG
-import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
 import com.kmozcan1.docebotest.presentation.viewmodel.ProfileViewModel
-import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
 import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState
+import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +17,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
         fun newInstance() = ProfileFragment()
     }
 
-    lateinit var userName: String
+    private lateinit var userName: String
 
     override fun layoutId() = R.layout.profile_fragment
 
@@ -45,12 +38,15 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
 
     private fun viewStateObserver() = Observer<ProfileViewState> { viewState ->
         when (viewState.state) {
-            ProfileViewState.State.USER_RESULT -> {
-                // Hide progress bar
+            State.USER_RESULT -> {
+                //TODO Hide progress bar
                 with(viewState.userProfileModel!!) {
-                    binding.fullNameTextView.text = fullName
-                    binding.userNameTextView.text = userName
-                    binding.urlTextView.text = profileUrl
+                    // Set view TextView texts
+                    with(binding) {
+                        fullNameTextView.text = fullName
+                        userNameTextView.text = userName
+                        urlTextView.text = profileUrl
+                    }
 
                     activity?.let {
                         Glide.with(it)
@@ -61,10 +57,10 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
                 }
 
             }
-            ProfileViewState.State.ERROR -> {
+            State.ERROR -> {
                 makeToast(viewState.errorMessage)
             }
-            ProfileViewState.State.LOADING -> {
+            State.LOADING -> {
                 makeToast("LOADING")
             }
         }

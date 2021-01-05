@@ -1,6 +1,6 @@
 package com.kmozcan1.docebotest.data.api
 
-import com.kmozcan1.docebotest.data.apimodel.SearchApiResponse
+import com.kmozcan1.docebotest.data.apimodel.SearchUserResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -8,6 +8,8 @@ import retrofit2.http.Query
 
 /**
  * Created by Kadir Mert Özcan on 28-Dec-20.
+ *
+ * Retrofit Endpoint for "search/" Api calls to GitHub Api
  */
 
 @JvmSuppressWildcards
@@ -22,5 +24,5 @@ interface SearchApi {
         @Query("order") order: String? = null,
         @Query("per_page") perPage: Int? = null,
         @Query("page") page: Int? = null
-    ): Single<SearchApiResponse>
+    ): Single<SearchUserResponse>
 }
