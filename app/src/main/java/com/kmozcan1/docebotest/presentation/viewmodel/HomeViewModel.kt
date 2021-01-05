@@ -9,7 +9,7 @@ class HomeViewModel @ViewModelInject constructor(
 ) : BaseViewModel<HomeViewState>() {
 
     // Starts observing the SearchUseCase observable. This is called when the user makes a new search
-    fun searchUser(userName: String) {
+    fun searchUser(userName: String = "") {
         setViewState(HomeViewState.loading())
         // Disposes of the observable on new search
         searchUserUseCase.dispose()

@@ -57,7 +57,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                 LinearLayoutManager(context),
                 userListAdapter
             )
-
             userListView.setCallbackListener(userListCallbackListener)
         }
     }
@@ -65,6 +64,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     override fun observeLiveDate() {
         // Observes the ViewState
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
+        viewModel.searchUser()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
