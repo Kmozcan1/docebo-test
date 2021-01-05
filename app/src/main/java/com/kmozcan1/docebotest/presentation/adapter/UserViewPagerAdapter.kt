@@ -17,8 +17,7 @@ class UserViewPagerAdapter @Inject constructor(
     private val userName: String
 ) : FragmentStateAdapter(userViewPagerFragment) {
 
-
-
+    // Number of tabs
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {

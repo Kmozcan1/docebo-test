@@ -132,4 +132,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        userListAdapter.clearSearchResults()
+    }
+
 }
