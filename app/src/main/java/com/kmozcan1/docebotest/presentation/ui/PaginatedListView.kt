@@ -3,6 +3,7 @@ package com.kmozcan1.docebotest.presentation.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.databinding.PaginatedListViewBinding
@@ -53,7 +54,6 @@ class PaginatedListView : ConstraintLayout {
         binding.paginatedRecyclerView.setAdapter(layoutManager, adapter)
     }
 
-
     // Fragment calls this to set the callback listener
     fun setCallbackListener(callbackListener: CallbackListener) {
         this.callbackListener = callbackListener
@@ -90,6 +90,20 @@ class PaginatedListView : ConstraintLayout {
         isLoading = isVisible
     }
 
+    // Sets the empty result text
+    fun setEmptyText(text: String) {
+        binding.emptyResultTextView.text = text
+    }
+
+    // Sets the empty result text visiblity
+    fun showEmptyText(visible: Boolean) {
+        if (visible) {
+            binding.emptyResultTextView.visibility = View.VISIBLE
+        } else {
+            binding.emptyResultTextView.visibility = View.GONE
+        }
+    }
+
     /**
      * Extends [PaginatedRecyclerViewScrollListener] to call [Listener] methods
      */
@@ -101,7 +115,6 @@ class PaginatedListView : ConstraintLayout {
                 callbackListener.onPaginatedListFinalItemVisible()
             }
         }
-
     }
 
     /**

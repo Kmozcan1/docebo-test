@@ -27,6 +27,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     private val userListCallbackListener = userListCallbackListener()
 
+    var searchQuery: String = ""
+
     // RecyclerView Adapter
     private val userListAdapter: UserListAdapter by lazy {
         UserListAdapter(mutableListOf(), userListCallbackListener)
@@ -109,8 +111,14 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                     // Hides the progress bars
                     showTopProgressBar(false)
                     showBottomProgressBar(false)
-                    // Add results
+
                     viewState.userSearchResult?.let { searchResult ->
+                        // Shows empty text if no results are returned
+                        if (searchResult.userList.isEmpty()) {
+                            setEmptyText(context.getString(R.string.home_empty_result, searchQuery))
+                            showEmptyText(true)
+                        }
+                        // Adds the results to the RecyclerView
                         userListAdapter.addSearchResult(searchResult.userList)
                         onFinalPage = searchResult.finalPage
                     }
@@ -120,7 +128,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                 makeToast(viewState.errorMessage)
             }
             State.LOADING -> {
-                binding.userListView.showTopProgressBar(true)
+                // Show progress bar and hide empty text on load
+                with(binding.userListView) {
+                    showEmptyText(false)
+                    showTopProgressBar(true)
+                }
             }
         }
     }
@@ -133,6 +145,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
         override fun onQueryTextSubmit(query: String?): Boolean {
             if (query != null) {
+                searchQuery = query
                 userListAdapter.clearSearchResults()
                 viewModel.searchUser(query)
                 hideKeyboard()

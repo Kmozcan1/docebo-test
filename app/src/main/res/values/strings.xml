@@ -14,4 +14,6 @@
     <string name="create_date">Create Date</string>
     <string name="push_date">Push Date</string>
     <string name="last_updated">Last Updated</string>
+    <string name="home_empty_result">Couldn\'t find any users matching \"%s\"</string>
+    <string name="repository_empty_text">This user has no repositories</string>
 </resources>

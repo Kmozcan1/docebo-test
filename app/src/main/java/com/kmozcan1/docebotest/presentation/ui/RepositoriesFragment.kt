@@ -99,8 +99,13 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
                     // Hides the progress bars
                     showTopProgressBar(false)
                     showBottomProgressBar(false)
-                    // Adds results
                     viewState.repositoriesResult?.let { repositoriesResult ->
+                        // Shows empty text if no results are returned
+                        if (repositoriesResult.repositoryList.isEmpty()) {
+                            setEmptyText(context.getString(R.string.repository_empty_text))
+                            showEmptyText(true)
+                        }
+                        // Adds results to the RecyclerView
                         repositoryListAdapter.addRepositories(repositoriesResult.repositoryList)
                         onFinalPage = repositoriesResult.finalPage
                     }
@@ -110,7 +115,11 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
                 makeToast(viewState.errorMessage)
             }
             State.LOADING -> {
-                binding.repositoriesListView.showTopProgressBar(true)
+                // Show progress bar and hide empty text on load
+                with(binding.repositoriesListView) {
+                    showEmptyText(false)
+                    showTopProgressBar(true)
+                }
             }
         }
     }
