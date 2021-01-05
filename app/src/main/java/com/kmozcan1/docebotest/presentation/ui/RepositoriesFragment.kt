@@ -23,7 +23,7 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         fun newInstance() = RepositoriesFragment()
     }
 
-    // Fetch parameters
+    // Api call parameters
     private lateinit var userName: String
     private var sortType = SortType.ALPHABETIC
     private var sortDirection = SortDirection.ASCENDING

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.HomeFragmentBinding
 import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
+import com.kmozcan1.docebotest.presentation.hideKeyboard
 import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState.State
@@ -88,6 +89,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         }
 
         override fun onPaginatedListItemClick(userName: String) {
+            hideKeyboard()
             val navAction =  HomeFragmentDirections
                     .actionHomeFragmentToUserViewPagerFragment(userName)
             navController.navigate(navAction)
@@ -125,6 +127,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
         override fun onQueryTextSubmit(query: String?): Boolean {
             if (query != null) {
+                hideKeyboard()
                 userListAdapter.clearSearchResults()
                 viewModel.searchUser(query)
             }

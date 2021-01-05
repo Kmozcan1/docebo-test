@@ -1,12 +1,13 @@
 package com.kmozcan1.docebotest.presentation
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.app.Activity
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kmozcan1.docebotest.R
@@ -27,7 +28,7 @@ fun RecyclerView.setAdapter(
     this.adapter = adapter
 }
 
-//
+// Binding adapter that loads image url with glide
 @BindingAdapter("imageUrl")
 fun setImageUrl(view: ImageView, url: String?) {
     Glide.with(view.context)
@@ -35,5 +36,14 @@ fun setImageUrl(view: ImageView, url: String?) {
         .placeholder(R.drawable.ic_placeholder_avatar)
         .into(view)
 }
+
+// Fragment extension to hide the keyboard
+fun Fragment.hideKeyboard() {
+    if (activity?.currentFocus != null) {
+        val inputMethodManager = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
+        inputMethodManager!!.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
+    }
+}
+
 
 
