@@ -46,6 +46,8 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
                         fullNameTextView.text = fullName
                         userNameTextView.text = userName
                         urlTextView.text = profileUrl
+                        emailTextView.text = email
+                        locationTextView.text = location
                     }
 
                     activity?.let {
