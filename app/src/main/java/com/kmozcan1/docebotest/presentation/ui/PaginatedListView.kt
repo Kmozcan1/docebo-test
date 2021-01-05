@@ -68,11 +68,24 @@ class PaginatedListView : ConstraintLayout {
 
     }
 
-    fun showProgressBar(isVisible: Boolean) {
+    // Sets bottom ProgressBar visibility
+    fun showBottomProgressBar(isVisible: Boolean) {
         if (isVisible) {
-            binding.progressBar.visibility = VISIBLE
+            binding.bottomProgressBar.visibility = VISIBLE
         } else {
-            binding.progressBar.visibility = GONE
+            binding.bottomProgressBar.visibility = GONE
+        }
+        isLoading = isVisible
+    }
+
+    // Sets top ProgressBar visibility
+    fun showTopProgressBar(isVisible: Boolean) {
+        if (isVisible) {
+            binding.topProgressBar.visibility = VISIBLE
+            binding.paginatedRecyclerView.visibility = GONE
+        } else {
+            binding.topProgressBar.visibility = GONE
+            binding.paginatedRecyclerView.visibility = VISIBLE
         }
         isLoading = isVisible
     }

@@ -1,5 +1,6 @@
 package com.kmozcan1.docebotest.presentation.ui
 
+import android.view.View
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.kmozcan1.docebotest.R
@@ -24,6 +25,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
     override fun getViewModelClass(): Class<ProfileViewModel> = ProfileViewModel::class.java
 
     override fun onViewBound() {
+        // Get the user name from bundle
         arguments?.takeIf {
             it.containsKey(USER_NAME_ARG)
         }?.apply {
@@ -41,8 +43,9 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
             State.USER_RESULT -> {
                 //TODO Hide progress bar
                 with(viewState.userProfileModel!!) {
-                    // Set view TextView texts
+                    // Set view TextView texts and hide progress bar
                     with(binding) {
+                        progressBar.visibility = View.GONE
                         fullNameTextView.text = fullName
                         userNameTextView.text = userName
                         urlTextView.text = profileUrl
@@ -63,7 +66,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
                 makeToast(viewState.errorMessage)
             }
             State.LOADING -> {
-                makeToast("LOADING")
+                binding.progressBar.visibility = View.VISIBLE
             }
         }
     }

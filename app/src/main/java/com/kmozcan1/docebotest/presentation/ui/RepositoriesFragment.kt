@@ -80,7 +80,9 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         // Loads more results when the final item has been reached
         // (only invoked if finalPage = false)
         override fun onPaginatedListFinalItemVisible() {
-            binding.repositoriesListView.showProgressBar(true)
+            if (repositoryListAdapter.itemCount != 0) {
+                binding.repositoriesListView.showBottomProgressBar(true)
+            }
             viewModel.loadMoreResults()
         }
 
@@ -94,8 +96,9 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         when (viewState.state) {
             State.REPOSITORY_RESULT -> {
                 with(binding.repositoriesListView) {
-                    // Hides the progress bar at the end of the paginated list
-                    showProgressBar(false)
+                    // Hides the progress bars
+                    showTopProgressBar(false)
+                    showBottomProgressBar(false)
                     // Adds results
                     viewState.repositoriesResult?.let { repositoriesResult ->
                         repositoryListAdapter.addRepositories(repositoriesResult.repositoryList)
@@ -107,7 +110,7 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
                 makeToast(viewState.errorMessage)
             }
             State.LOADING -> {
-                makeToast("LOADING")
+                binding.repositoriesListView.showTopProgressBar(true)
             }
         }
     }

@@ -2,6 +2,8 @@ package com.kmozcan1.docebotest.presentation.ui
 
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.navigation.ui.setupWithNavController
@@ -14,6 +16,7 @@ import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState.State
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
@@ -84,7 +87,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         // Loads more results when the final item has been reached
         // (only invoked if finalPage = false)
         override fun onPaginatedListFinalItemVisible() {
-            binding.userListView.showProgressBar(true)
+            if (userListAdapter.itemCount != 0) {
+                binding.userListView.showBottomProgressBar(true)
+            }
             viewModel.loadMoreResults()
         }
 
@@ -101,8 +106,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         when (viewState.state) {
             State.SEARCH_RESULT -> {
                 with(binding.userListView) {
-                    // Hides the progress bar at the end of the paginated list
-                    showProgressBar(false)
+                    // Hides the progress bars
+                    showTopProgressBar(false)
+                    showBottomProgressBar(false)
                     // Add results
                     viewState.userSearchResult?.let { searchResult ->
                         userListAdapter.addSearchResult(searchResult.userList)
@@ -114,7 +120,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                 makeToast(viewState.errorMessage)
             }
             State.LOADING -> {
-                makeToast("LOADING")
+                binding.userListView.showTopProgressBar(true)
             }
         }
     }
@@ -127,9 +133,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
         override fun onQueryTextSubmit(query: String?): Boolean {
             if (query != null) {
-                hideKeyboard()
                 userListAdapter.clearSearchResults()
                 viewModel.searchUser(query)
+                hideKeyboard()
             }
             return true
         }
