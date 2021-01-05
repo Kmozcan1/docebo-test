@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:onClick="@{() -> listener.onPaginatedListItemClick(userName)}">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userImageView"
+            app:shapeAppearanceOverlay="@style/RoundedImageViewRounded"
             imageUrl="@{avatarUrl}"
             android:layout_width="42dp"
             android:layout_height="42dp"
@@ -33,10 +34,10 @@
             android:layout_marginStart="32dp"
             android:text="@{userName}"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/userImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toEndOf="@+id/userImageView"
+            app:layout_constraintTop_toTopOf="@+id/userImageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
