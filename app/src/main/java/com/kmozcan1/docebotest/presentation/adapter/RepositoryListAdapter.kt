@@ -80,5 +80,4 @@ class RepositoryListAdapter(private val repositoryList: MutableList<RepositoryMo
         repositoryList.clear()
         notifyDataSetChanged()
     }
-
 }

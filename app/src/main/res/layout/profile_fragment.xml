@@ -130,6 +130,7 @@
                 android:id="@+id/urlTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 app:layout_constraintBottom_toBottomOf="@+id/urlLabelTextView"
                 app:layout_constraintStart_toStartOf="@+id/profileGuideline"
                 app:layout_constraintTop_toTopOf="@+id/urlLabelTextView" />
