@@ -28,17 +28,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_DoceboTest)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.viewState.observe(this, observeViewState())
         viewModel.observeInternetConnection()
-
-        /*val toolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.coll)
-        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)*/
-
-
     }
 
     private fun observeViewState() = Observer<MainViewState> { viewState ->

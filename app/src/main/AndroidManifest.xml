@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DoceboTest">
+        android:theme="@style/Theme.DoceboTest.Launcher">
         <activity
             android:name="com.kmozcan1.docebotest.presentation.ui.MainActivity"
             android:launchMode="singleTop"
