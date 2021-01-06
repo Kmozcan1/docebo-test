@@ -35,10 +35,10 @@ class RepositoryListAdapter(private val repositoryList: MutableList<RepositoryMo
                 stars = starCount,
                 // Star image source is based on number of stars
                 starSrc = when (starCount) {
-                    in 1000..Int.MAX_VALUE -> {
+                    in 100..Int.MAX_VALUE -> {
                         R.drawable.ic_star
                     }
-                    in 100 until 1000 -> {
+                    in 50 until 100 -> {
                         R.drawable.ic_star_half_full
                     }
                     else -> {

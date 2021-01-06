@@ -12,6 +12,10 @@ data class HomeViewState (
     val userSearchResult: UserSearchResultModel? = null
 ) {
     companion object {
+        fun initial(): HomeViewState = HomeViewState(
+            state = State.INITIAL
+        )
+
         fun error(e: Throwable): HomeViewState = HomeViewState(
             state = State.ERROR,
             errorMessage = e.message
@@ -29,6 +33,7 @@ data class HomeViewState (
 
     enum class State {
         ERROR,
+        INITIAL,
         LOADING,
         SEARCH_RESULT
     }

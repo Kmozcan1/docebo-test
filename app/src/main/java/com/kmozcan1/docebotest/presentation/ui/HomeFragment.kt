@@ -66,7 +66,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     override fun observeLiveDate() {
         // Observes the ViewState
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
-        viewModel.searchUser()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,7 +79,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         searchView.isIconified = true
         searchView.setIconifiedByDefault(false)
         searchView.maxWidth = Integer.MAX_VALUE
-
+        searchView.queryHint = getString(R.string.search_user);
         searchView.setOnQueryTextListener(onQueryTextListener())
     }
 
@@ -106,6 +105,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     // Returns ViewState Observer object
     private fun viewStateObserver() = Observer<HomeViewState> { viewState ->
         when (viewState.state) {
+            State.INITIAL -> {
+                viewModel.searchUser()
+            }
             State.SEARCH_RESULT -> {
                 with(binding.userListView) {
                     // Hides the progress bars
