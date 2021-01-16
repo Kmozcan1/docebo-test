@@ -35,7 +35,7 @@ In order to run the debug APK on your device, you need to enable USB debugging b
 ### Android Studio
 * Open the project by selecting `File -> Open...`
 * Make sure that your device is connected to your PC. Select your device from Android Studio's toolbar in the dropdown menu that lists the available devices.
-* Select `Run -> Run app` or click the green `play` icon.
+* Select `Run -> Run app` or click the green play icon.
 
 ### Terminal / Command Prompt
 * Navigate to the project folder with the following command: `cd <path-to-the-project-folder>` 
