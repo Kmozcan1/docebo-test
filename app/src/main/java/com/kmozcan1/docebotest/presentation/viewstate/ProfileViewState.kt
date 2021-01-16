@@ -1,7 +1,6 @@
 package com.kmozcan1.docebotest.presentation.viewstate
 
 import com.kmozcan1.docebotest.domain.model.UserProfileModel
-import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.

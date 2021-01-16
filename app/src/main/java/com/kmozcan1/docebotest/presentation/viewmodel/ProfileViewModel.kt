@@ -1,11 +1,8 @@
 package com.kmozcan1.docebotest.presentation.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.ViewModel
-import com.kmozcan1.docebotest.domain.interactor.GetUserUseCase
-import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
 import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState
-import javax.inject.Inject
+import com.kmozcan1.docebotest.usecase.GetUserUseCase
 
 
 class ProfileViewModel @ViewModelInject constructor(

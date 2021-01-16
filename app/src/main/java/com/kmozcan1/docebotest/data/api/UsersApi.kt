@@ -1,6 +1,5 @@
 package com.kmozcan1.docebotest.data.api
 
-import com.kmozcan1.docebotest.data.apimodel.GetUserRepositoriesResponse
 import com.kmozcan1.docebotest.data.apimodel.GetUserResponse
 import com.kmozcan1.docebotest.data.apimodel.RepositoryApiModel
 import io.reactivex.rxjava3.core.Single

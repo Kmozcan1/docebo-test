@@ -10,4 +10,5 @@ data class UserProfileModel(
     val fullName: String,
     val email: String,
     val profileUrl: String,
-    val avatarUrl: String)
+    val avatarUrl: String,
+    val location: String)

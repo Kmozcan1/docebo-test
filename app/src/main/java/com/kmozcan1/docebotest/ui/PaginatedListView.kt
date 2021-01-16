@@ -1,8 +1,9 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.databinding.PaginatedListViewBinding
@@ -53,7 +54,6 @@ class PaginatedListView : ConstraintLayout {
         binding.paginatedRecyclerView.setAdapter(layoutManager, adapter)
     }
 
-
     // Fragment calls this to set the callback listener
     fun setCallbackListener(callbackListener: CallbackListener) {
         this.callbackListener = callbackListener
@@ -68,13 +68,42 @@ class PaginatedListView : ConstraintLayout {
 
     }
 
-    fun showProgressBar(isVisible: Boolean) {
+    // Sets bottom ProgressBar visibility
+    fun showBottomProgressBar(isVisible: Boolean) {
         if (isVisible) {
-            binding.progressBar.visibility = VISIBLE
+            binding.bottomProgressBar.visibility = VISIBLE
         } else {
-            binding.progressBar.visibility = GONE
+            binding.bottomProgressBar.visibility = GONE
         }
         isLoading = isVisible
+    }
+
+    // Sets top ProgressBar visibility
+    fun showTopProgressBar(isVisible: Boolean) {
+        if (isVisible) {
+            binding.topProgressBar.visibility = VISIBLE
+            binding.paginatedRecyclerView.visibility = GONE
+        } else {
+            binding.topProgressBar.visibility = GONE
+            binding.paginatedRecyclerView.visibility = VISIBLE
+        }
+        isLoading = isVisible
+    }
+
+    // Sets the empty result text
+    fun setEmptyText(text: String) {
+        binding.emptyResultTextView.text = text
+    }
+
+    // Sets the empty result text visiblity
+    fun showEmptyText(visible: Boolean) {
+        if (visible) {
+            binding.emptyResultTextView.visibility = View.VISIBLE
+            binding.paginatedRecyclerView.visibility = View.GONE
+        } else {
+            binding.emptyResultTextView.visibility = View.GONE
+            binding.paginatedRecyclerView.visibility = View.VISIBLE
+        }
     }
 
     /**
@@ -88,7 +117,6 @@ class PaginatedListView : ConstraintLayout {
                 callbackListener.onPaginatedListFinalItemVisible()
             }
         }
-
     }
 
     /**

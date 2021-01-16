@@ -14,12 +14,16 @@ import javax.inject.Inject
 class SearchRepositoryImpl @Inject constructor(
         private val searchApi: SearchApi
 ) : SearchRepository {
+    companion object {
+        private const val DEFAULT_SEARCH_QUERY = "followers:>=1000"
+    }
+
     /**
      * Returns a [Single] object that emits the result returned by the [SearchApi.searchUsers] method
      */
     override fun searchUser(userName: String, page: Int, perPage: Int): Single<List<UserSearchApiModel>> {
         return searchApi.searchUsers(
-                query = userName,
+                query = if (userName.isBlank()) DEFAULT_SEARCH_QUERY else userName,
                 page = page,
                 perPage = perPage
         ).map { response ->

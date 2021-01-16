@@ -1,11 +1,11 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.presentation.viewmodel.SplashViewModel
 

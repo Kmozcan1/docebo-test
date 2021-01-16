@@ -1,7 +1,6 @@
 package com.kmozcan1.docebotest.presentation.viewstate
 
 import com.kmozcan1.docebotest.domain.model.RepositoriesResultModel
-import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
 
 /**
  * Created by Kadir Mert Özcan on 05-Jan-21.
