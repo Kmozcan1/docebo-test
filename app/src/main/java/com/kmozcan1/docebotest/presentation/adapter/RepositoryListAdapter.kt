@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.RepositoryListItemBinding
 import com.kmozcan1.docebotest.domain.model.RepositoryModel
-import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
-import com.kmozcan1.docebotest.presentation.ui.PaginatedListView
+import com.kmozcan1.docebotest.ui.PaginatedListView
 import java.text.NumberFormat
 import java.util.*
 
 /**
  * Created by Kadir Mert Özcan on 05-Jan-21.
  */
-class RepositoryListAdapter(private val repositoryList: MutableList<RepositoryModel>,
+class RepositoryListAdapter(val repositoryList: MutableList<RepositoryModel>,
                              private val callbackListener: PaginatedListView.CallbackListener):
     RecyclerView.Adapter<RepositoryListAdapter.RepositoryListItemViewHolder>() {
     override fun onCreateViewHolder(

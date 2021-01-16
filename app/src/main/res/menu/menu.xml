@@ -6,6 +6,7 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search_title"
         android:visible="true"
+        android:iconTint="@color/white"
         app:actionProviderClass="androidx.appcompat.widget.ShareActionProvider"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />

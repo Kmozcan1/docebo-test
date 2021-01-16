@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
 import android.content.Context
 import android.util.AttributeSet
@@ -99,8 +99,10 @@ class PaginatedListView : ConstraintLayout {
     fun showEmptyText(visible: Boolean) {
         if (visible) {
             binding.emptyResultTextView.visibility = View.VISIBLE
+            binding.paginatedRecyclerView.visibility = View.GONE
         } else {
             binding.emptyResultTextView.visibility = View.GONE
+            binding.paginatedRecyclerView.visibility = View.VISIBLE
         }
     }
 

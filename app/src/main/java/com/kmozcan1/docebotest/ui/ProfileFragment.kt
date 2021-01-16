@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
 import android.view.View
 import androidx.lifecycle.Observer
@@ -20,9 +20,9 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
 
     private lateinit var userName: String
 
-    override fun layoutId() = R.layout.profile_fragment
+    override val layoutId = R.layout.profile_fragment
 
-    override fun getViewModelClass(): Class<ProfileViewModel> = ProfileViewModel::class.java
+    override val viewModelClass: Class<ProfileViewModel> = ProfileViewModel::class.java
 
     override fun onViewBound() {
         // Get the user name from bundle
@@ -33,7 +33,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
         }
     }
 
-    override fun observeLiveDate() {
+    override fun observeLiveData() {
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
         viewModel.getUserProfile(userName)
     }
@@ -45,7 +45,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
                 with(viewState.userProfileModel!!) {
                     // Set view TextView texts and hide progress bar
                     with(binding) {
-                        progressBar.visibility = View.GONE
+                        profileProgressBar.visibility = View.GONE
                         fullNameTextView.text = fullName
                         userNameTextView.text = userName
                         urlTextView.text = profileUrl
@@ -66,7 +66,7 @@ class ProfileFragment : BaseFragment<ProfileFragmentBinding, ProfileViewModel>()
                 makeToast(viewState.errorMessage)
             }
             State.LOADING -> {
-                binding.progressBar.visibility = View.VISIBLE
+                binding.profileProgressBar.visibility = View.VISIBLE
             }
         }
     }

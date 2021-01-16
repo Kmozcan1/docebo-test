@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
 import android.os.Bundle
 import android.view.View
@@ -28,6 +28,9 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
     private var sortType = SortType.ALPHABETIC
     private var sortDirection = SortDirection.ASCENDING
 
+    // To prevent multiple click to sort buttons while repositories are still loading
+    private var sortDisabled = true
+
     private val repositoryListCallbackListener = repositoryListCallbackListener()
 
     // RecyclerView Adapter
@@ -39,9 +42,9 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         RepoSortBottomSheetFragment()
     }
 
-    override fun layoutId() = R.layout.repositories_fragment
+    override val layoutId = R.layout.repositories_fragment
 
-    override fun getViewModelClass(): Class<RepositoriesViewModel> =
+    override val viewModelClass: Class<RepositoriesViewModel> =
         RepositoriesViewModel::class.java
 
     override fun onViewBound() {
@@ -69,7 +72,7 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
         }
     }
 
-    override fun observeLiveDate() {
+    override fun observeLiveData() {
         // Observes the ViewState
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
         getRepositories()
@@ -108,14 +111,18 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
                         // Adds results to the RecyclerView
                         repositoryListAdapter.addRepositories(repositoriesResult.repositoryList)
                         onFinalPage = repositoriesResult.finalPage
+                        // Enable sorting
+                        sortDisabled = false
                     }
                 }
             }
             State.ERROR -> {
                 makeToast(viewState.errorMessage)
+                sortDisabled = false
             }
             State.LOADING -> {
                 // Show progress bar and hide empty text on load
+                sortDisabled = true
                 with(binding.repositoriesListView) {
                     showEmptyText(false)
                     showTopProgressBar(true)
@@ -125,23 +132,28 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
     }
 
     fun onSortButtonClick(v: View) {
-        sortBottomSheetFragment.arguments = Bundle().apply {
-            sortBottomSheetFragment.show(childFragmentManager, tag)
+        if (!sortDisabled) {
+            sortBottomSheetFragment.arguments = Bundle().apply {
+                sortBottomSheetFragment.show(childFragmentManager, tag)
+            }
         }
     }
 
     fun orSortDirectionButtonClick(button: View) {
-        when (sortDirection) {
-            SortDirection.ASCENDING -> {
-                sortDirection = SortDirection.DESCENDING
-                (button as MaterialButton).setIconResource(R.drawable.ic_sort_descending)
+        if (!sortDisabled) {
+            sortDisabled = true
+            when (sortDirection) {
+                SortDirection.ASCENDING -> {
+                    sortDirection = SortDirection.DESCENDING
+                    (button as MaterialButton).setIconResource(R.drawable.ic_sort_descending)
+                }
+                SortDirection.DESCENDING -> {
+                    sortDirection = SortDirection.ASCENDING
+                    (button as MaterialButton).setIconResource(R.drawable.ic_sort_ascending)
+                }
             }
-            SortDirection.DESCENDING -> {
-                sortDirection = SortDirection.ASCENDING
-                (button as MaterialButton).setIconResource(R.drawable.ic_sort_ascending)
-            }
+            getRepositories()
         }
-        getRepositories()
     }
 
     fun onBottomSheetButtonClick(sortType: SortType) {
@@ -173,6 +185,26 @@ class RepositoriesFragment : BaseFragment<RepositoriesFragmentBinding, Repositor
     // Clears the previous list and fetches the repositories with chosen parameters
     private fun getRepositories() {
         repositoryListAdapter.clearRepositoryList()
-        viewModel.getRepositories(userName, sortType, sortDirection)
+        if (getIsConnectedToInternet()) {
+            viewModel.getRepositories(userName, sortType, sortDirection)
+        } else {
+            with(binding.repositoriesListView) {
+                setEmptyText(context.getString(R.string.internet_disconnected))
+                showEmptyText(true)
+            }
+        }
+    }
+
+
+    override fun onInternetConnected() {
+        with(binding.repositoriesListView) {
+            if (repositoryListAdapter.repositoryList.isNotEmpty()) {
+                showEmptyText(false)
+            }
+        }
+        if (previouslyDisconnected) {
+            getRepositories()
+        }
+        super.onInternetConnected()
     }
 }

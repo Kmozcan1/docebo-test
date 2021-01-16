@@ -1,12 +1,12 @@
-package com.kmozcan1.docebotest.domain.interactor
+package com.kmozcan1.docebotest.usecase
 
 import com.kmozcan1.docebotest.domain.DomainConstants.PER_PAGE
 import com.kmozcan1.docebotest.domain.enums.SortDirection
 import com.kmozcan1.docebotest.domain.enums.SortType
-import com.kmozcan1.docebotest.domain.interactor.base.ObservableUseCase
 import com.kmozcan1.docebotest.domain.mapper.RepositoryMapper
 import com.kmozcan1.docebotest.domain.model.RepositoriesResultModel
 import com.kmozcan1.docebotest.domain.repository.UsersRepository
+import com.kmozcan1.docebotest.usecase.base.ObservableUseCase
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject

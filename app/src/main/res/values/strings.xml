@@ -17,4 +17,6 @@
     <string name="home_empty_result">Couldn\'t find any users matching \"%s\"</string>
     <string name="repository_empty_text">This user has no repositories</string>
     <string name="search_user">Search Users…</string>
+    <string name="home">Home</string>
+    <string name="internet_disconnected">Please check your network connection</string>
 </resources>

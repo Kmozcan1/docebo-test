@@ -1,9 +1,8 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.navigation.ui.setupWithNavController
@@ -27,22 +26,29 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     private val userListCallbackListener = userListCallbackListener()
 
-    var searchQuery: String = ""
+    private var searchQuery: String = ""
+
+    private lateinit var searchBar: SearchView
+
+    // To prevent multiple search during load
+    private var searchDisabled = true
 
     // RecyclerView Adapter
     private val userListAdapter: UserListAdapter by lazy {
         UserListAdapter(mutableListOf(), userListCallbackListener)
     }
 
-    override fun layoutId(): Int = R.layout.home_fragment
+    override val layoutId: Int = R.layout.home_fragment
 
-    override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
+    override val viewModelClass: Class<HomeViewModel> = HomeViewModel::class.java
+
 
     override fun onViewBound() {
         setToolbar()
 
         setUserList()
     }
+
 
     // Sets the toolbar with options menu
     private fun setToolbar() {
@@ -63,24 +69,28 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
         }
     }
 
-    override fun observeLiveDate() {
+    override fun observeLiveData() {
         // Observes the ViewState
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver())
     }
 
+    // Adds search bar to the toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
-        setSearchView(menu.findItem(R.id.search).actionView as SearchView)
+        searchBar = menu.findItem(R.id.search).actionView as SearchView
+        setSearchBar()
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun setSearchView(searchView: SearchView) {
-        // Sets searchView to be always extended
-        searchView.isIconified = true
-        searchView.setIconifiedByDefault(false)
-        searchView.maxWidth = Integer.MAX_VALUE
-        searchView.queryHint = getString(R.string.search_user);
-        searchView.setOnQueryTextListener(onQueryTextListener())
+    // Sets searchView to be always extended, sets the hint and text listener
+    private fun setSearchBar() {
+        searchBar.run {
+            isIconified = true
+            setIconifiedByDefault(false)
+            maxWidth = Integer.MAX_VALUE
+            queryHint = getString(R.string.search_user)
+            setOnQueryTextListener(onQueryTextListener())
+        }
     }
 
     // Returns paginated list callback listener object
@@ -96,6 +106,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
         override fun onPaginatedListItemClick(userName: String) {
             hideKeyboard()
+            viewModel.hasRetainedList = true
+            searchBar.visibility = View.GONE
             val navAction =  HomeFragmentDirections
                     .actionHomeFragmentToUserViewPagerFragment(userName)
             navController.navigate(navAction)
@@ -106,7 +118,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     private fun viewStateObserver() = Observer<HomeViewState> { viewState ->
         when (viewState.state) {
             State.INITIAL -> {
-                viewModel.searchUser()
+                if (getIsConnectedToInternet()) {
+                    viewModel.searchUser()
+                }
             }
             State.SEARCH_RESULT -> {
                 with(binding.userListView) {
@@ -120,17 +134,29 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                             setEmptyText(context.getString(R.string.home_empty_result, searchQuery))
                             showEmptyText(true)
                         }
+
                         // Adds the results to the RecyclerView
-                        userListAdapter.addSearchResult(searchResult.userList)
-                        onFinalPage = searchResult.finalPage
+                        // If the user is navigating from the profile screen, adds all results to the
+                        // RecyclerView, instead of just adding the latest results
+                        if (!viewModel.hasRetainedList) {
+                            userListAdapter.addSearchResult(searchResult.userList)
+                        } else {
+                            viewModel.hasRetainedList = false
+                            userListAdapter.addSearchResult(viewState.allSearchResults!!)
+                            onFinalPage = searchResult.finalPage
+                        }
+                        searchDisabled = false
                     }
                 }
             }
             State.ERROR -> {
                 makeToast(viewState.errorMessage)
+                binding.userListView.showTopProgressBar(false)
+                searchDisabled = false
             }
             State.LOADING -> {
                 // Show progress bar and hide empty text on load
+                searchDisabled = true
                 with(binding.userListView) {
                     showEmptyText(false)
                     showTopProgressBar(true)
@@ -147,10 +173,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
         override fun onQueryTextSubmit(query: String?): Boolean {
             if (query != null) {
-                searchQuery = query
-                userListAdapter.clearSearchResults()
-                viewModel.searchUser(query)
-                hideKeyboard()
+                if (getIsConnectedToInternet()) {
+                    searchQuery = query
+                    userListAdapter.clearSearchResults()
+                    viewModel.searchUser(query)
+                    searchDisabled = true
+                    hideKeyboard()
+                } else {
+                    with(binding.userListView) {
+                        setEmptyText(context.getString(R.string.internet_disconnected))
+                        showEmptyText(true)
+                    }
+                }
             }
             return true
         }
@@ -159,6 +193,24 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
     override fun onDestroyView() {
         super.onDestroyView()
         userListAdapter.clearSearchResults()
+    }
+
+    override fun onInternetDisconnected() {
+        with(binding.userListView) {
+            setEmptyText(context.getString(R.string.internet_disconnected))
+            showEmptyText(true)
+        }
+        super.onInternetDisconnected()
+    }
+
+    override fun onInternetConnected() {
+        if (previouslyDisconnected) {
+            binding.userListView.showEmptyText(false)
+        }
+        if (previouslyDisconnected && userListAdapter.userList.isEmpty()) {
+            viewModel.searchUser(searchQuery)
+        }
+        super.onInternetConnected()
     }
 
 }

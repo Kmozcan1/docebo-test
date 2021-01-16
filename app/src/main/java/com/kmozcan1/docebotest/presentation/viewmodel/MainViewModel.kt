@@ -1,8 +1,8 @@
 package com.kmozcan1.docebotest.presentation.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import com.kmozcan1.docebotest.domain.interactor.ObserveInternetConnectionUseCase
 import com.kmozcan1.docebotest.presentation.viewstate.MainViewState
+import com.kmozcan1.docebotest.usecase.ObserveInternetConnectionUseCase
 
 /**
  * Created by Kadir Mert Özcan on 29-Dec-20.

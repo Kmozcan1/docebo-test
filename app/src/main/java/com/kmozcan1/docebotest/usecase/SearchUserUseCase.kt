@@ -1,10 +1,10 @@
-package com.kmozcan1.docebotest.domain.interactor
+package com.kmozcan1.docebotest.usecase
 
 import com.kmozcan1.docebotest.domain.DomainConstants.PER_PAGE
-import com.kmozcan1.docebotest.domain.interactor.base.ObservableUseCase
 import com.kmozcan1.docebotest.domain.mapper.SearchResultMapper
 import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
 import com.kmozcan1.docebotest.domain.repository.SearchRepository
+import com.kmozcan1.docebotest.usecase.base.ObservableUseCase
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject

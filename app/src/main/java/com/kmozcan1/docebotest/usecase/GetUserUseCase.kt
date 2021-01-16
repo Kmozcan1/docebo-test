@@ -1,9 +1,9 @@
-package com.kmozcan1.docebotest.domain.interactor
+package com.kmozcan1.docebotest.usecase
 
-import com.kmozcan1.docebotest.domain.interactor.base.SingleUseCase
 import com.kmozcan1.docebotest.domain.mapper.UserMapper
 import com.kmozcan1.docebotest.domain.model.UserProfileModel
 import com.kmozcan1.docebotest.domain.repository.UsersRepository
+import com.kmozcan1.docebotest.usecase.base.SingleUseCase
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

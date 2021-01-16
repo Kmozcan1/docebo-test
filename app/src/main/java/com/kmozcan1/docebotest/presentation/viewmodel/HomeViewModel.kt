@@ -1,12 +1,19 @@
 package com.kmozcan1.docebotest.presentation.viewmodel
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import com.kmozcan1.docebotest.domain.interactor.SearchUserUseCase
+import androidx.lifecycle.SavedStateHandle
+import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
 import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
+import com.kmozcan1.docebotest.usecase.SearchUserUseCase
 
 class HomeViewModel @ViewModelInject constructor(
-    private val searchUserUseCase: SearchUserUseCase
+    private val searchUserUseCase: SearchUserUseCase,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel<HomeViewState>() {
+
+    private val allSearchResults = mutableListOf<UserSearchItemModel>()
+    var hasRetainedList: Boolean = false
 
     init {
         setViewState(HomeViewState.initial())
@@ -22,10 +29,12 @@ class HomeViewModel @ViewModelInject constructor(
             // Searches for the users after subscription
             onSubscribe = {
                 searchUserUseCase.searchUser()
+                allSearchResults.clear()
             },
             // Updates ViewState on result
             onNext = { searchResult ->
-                setViewState(HomeViewState.userSearchResult(searchResult))
+                allSearchResults.addAll(searchResult.userList)
+                setViewState(HomeViewState.userSearchResult(searchResult, allSearchResults))
             },
             onError = {
                 onError(it)
