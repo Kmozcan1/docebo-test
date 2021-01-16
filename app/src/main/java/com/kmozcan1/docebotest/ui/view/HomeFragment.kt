@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,8 +12,8 @@ import com.kmozcan1.docebotest.databinding.HomeFragmentBinding
 import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
 import com.kmozcan1.docebotest.presentation.hideKeyboard
 import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
-import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
-import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState.State
+import com.kmozcan1.docebotest.ui.viewstate.HomeViewState
+import com.kmozcan1.docebotest.ui.viewstate.HomeViewState.State
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -108,8 +108,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
             hideKeyboard()
             viewModel.hasRetainedList = true
             searchBar.visibility = View.GONE
-            val navAction =  HomeFragmentDirections
-                    .actionHomeFragmentToUserViewPagerFragment(userName)
+            val navAction = HomeFragmentDirections.actionHomeFragmentToUserViewPagerFragment(userName)
             navController.navigate(navAction)
         }
     }
@@ -135,6 +134,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                             showEmptyText(true)
                         }
 
+                        // sets the finalPage attribute of the paginated list view
+                        // to determine if more data can be loaded or not
+                        onFinalPage = searchResult.finalPage
+
                         // Adds the results to the RecyclerView
                         // If the user is navigating from the profile screen, adds all results to the
                         // RecyclerView, instead of just adding the latest results
@@ -143,7 +146,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                         } else {
                             viewModel.hasRetainedList = false
                             userListAdapter.addSearchResult(viewState.allSearchResults!!)
-                            onFinalPage = searchResult.finalPage
                         }
                         searchDisabled = false
                     }

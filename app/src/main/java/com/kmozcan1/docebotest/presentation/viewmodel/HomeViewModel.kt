@@ -4,7 +4,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
-import com.kmozcan1.docebotest.presentation.viewstate.HomeViewState
+import com.kmozcan1.docebotest.ui.viewstate.HomeViewState
 import com.kmozcan1.docebotest.usecase.SearchUserUseCase
 
 class HomeViewModel @ViewModelInject constructor(

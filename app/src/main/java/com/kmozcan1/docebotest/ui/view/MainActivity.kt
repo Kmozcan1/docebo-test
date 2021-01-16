@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.os.Bundle
 import android.widget.Toast
@@ -11,8 +11,8 @@ import androidx.navigation.findNavController
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ActivityMainBinding
 import com.kmozcan1.docebotest.presentation.viewmodel.MainViewModel
-import com.kmozcan1.docebotest.presentation.viewstate.MainViewState
-import com.kmozcan1.docebotest.presentation.viewstate.MainViewState.State.*
+import com.kmozcan1.docebotest.ui.viewstate.MainViewState
+import com.kmozcan1.docebotest.ui.viewstate.MainViewState.State.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

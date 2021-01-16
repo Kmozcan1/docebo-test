@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.view.View
 import androidx.lifecycle.Observer
@@ -7,8 +7,8 @@ import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ProfileFragmentBinding
 import com.kmozcan1.docebotest.presentation.ArgConstants.USER_NAME_ARG
 import com.kmozcan1.docebotest.presentation.viewmodel.ProfileViewModel
-import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState
-import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState.State
+import com.kmozcan1.docebotest.ui.viewstate.ProfileViewState
+import com.kmozcan1.docebotest.ui.viewstate.ProfileViewState.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

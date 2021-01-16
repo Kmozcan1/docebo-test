@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.os.Bundle
 import android.view.View
@@ -12,8 +12,8 @@ import com.kmozcan1.docebotest.domain.enums.SortType
 import com.kmozcan1.docebotest.presentation.ArgConstants
 import com.kmozcan1.docebotest.presentation.adapter.RepositoryListAdapter
 import com.kmozcan1.docebotest.presentation.viewmodel.RepositoriesViewModel
-import com.kmozcan1.docebotest.presentation.viewstate.RepositoriesViewState
-import com.kmozcan1.docebotest.presentation.viewstate.RepositoriesViewState.State
+import com.kmozcan1.docebotest.ui.viewstate.RepositoriesViewState
+import com.kmozcan1.docebotest.ui.viewstate.RepositoriesViewState.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

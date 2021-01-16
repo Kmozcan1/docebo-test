@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,7 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.databinding.PaginatedListViewBinding
-import com.kmozcan1.docebotest.presentation.listener.PaginatedRecyclerViewScrollListener
+import com.kmozcan1.docebotest.ui.listener.PaginatedRecyclerViewScrollListener
 import com.kmozcan1.docebotest.presentation.setAdapter
 
 

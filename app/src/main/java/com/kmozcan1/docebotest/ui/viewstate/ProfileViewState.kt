@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.viewstate
+package com.kmozcan1.docebotest.ui.viewstate
 
 import com.kmozcan1.docebotest.domain.model.UserProfileModel
 
@@ -6,9 +6,9 @@ import com.kmozcan1.docebotest.domain.model.UserProfileModel
  * Created by Kadir Mert Özcan on 03-Jan-21.
  */
 data class ProfileViewState (
-    val state: State,
-    val errorMessage: String? = null,
-    val userProfileModel: UserProfileModel? = null)
+        val state: State,
+        val errorMessage: String? = null,
+        val userProfileModel: UserProfileModel? = null)
 {
 
     companion object {

@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.viewstate
+package com.kmozcan1.docebotest.ui.viewstate
 
 import com.kmozcan1.docebotest.domain.model.RepositoriesResultModel
 
@@ -6,9 +6,9 @@ import com.kmozcan1.docebotest.domain.model.RepositoriesResultModel
  * Created by Kadir Mert Özcan on 05-Jan-21.
  */
 data class RepositoriesViewState(
-    val state: State,
-    val errorMessage: String? = null,
-    val repositoriesResult: RepositoriesResultModel? = null) {
+        val state: State,
+        val errorMessage: String? = null,
+        val repositoriesResult: RepositoriesResultModel? = null) {
 
     companion object {
         fun error(e: Throwable): RepositoriesViewState = RepositoriesViewState(

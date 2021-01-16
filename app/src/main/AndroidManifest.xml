@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoceboTest.Launcher">
         <activity
-            android:name="com.kmozcan1.docebotest.ui.MainActivity"
+            android:name="com.kmozcan1.docebotest.ui.view.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop">
             <intent-filter>

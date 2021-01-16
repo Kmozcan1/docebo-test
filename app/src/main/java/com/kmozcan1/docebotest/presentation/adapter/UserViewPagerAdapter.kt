@@ -4,17 +4,17 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kmozcan1.docebotest.presentation.ArgConstants.USER_NAME_ARG
-import com.kmozcan1.docebotest.ui.ProfileFragment
-import com.kmozcan1.docebotest.ui.RepositoriesFragment
-import com.kmozcan1.docebotest.ui.UserViewPagerFragment
+import com.kmozcan1.docebotest.ui.view.ProfileFragment
+import com.kmozcan1.docebotest.ui.view.RepositoriesFragment
+import com.kmozcan1.docebotest.ui.view.UserViewPagerFragment
 import javax.inject.Inject
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.
  */
 class UserViewPagerAdapter @Inject constructor(
-    userViewPagerFragment: UserViewPagerFragment,
-    private val userName: String
+        userViewPagerFragment: UserViewPagerFragment,
+        private val userName: String
 ) : FragmentStateAdapter(userViewPagerFragment) {
 
     // Number of tabs
