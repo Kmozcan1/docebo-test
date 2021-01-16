@@ -30,7 +30,7 @@ This application was developed for Docebo® as a part of their hiring process.
 
 ## Running application on your device
 
-In order to run the debug APK on your device, you need to enable USB debugging by [following the instructions provided by Android Development team.](https://developer.android.com/studio/debug/dev-options#enable).
+In order to run the debug APK on your device, you need to enable USB debugging by [following the instructions provided by Android Development team.](https://developer.android.com/studio/debug/dev-options#enable)
 
 ### Android Studio
 * Open the project by selecting `File -> Open...`
