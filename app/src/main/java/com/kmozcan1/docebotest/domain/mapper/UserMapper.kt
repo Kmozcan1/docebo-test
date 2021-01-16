@@ -12,10 +12,13 @@ import javax.inject.Inject
 class UserMapper @Inject constructor(): Mapper<GetUserResponse, UserProfileModel> {
     override fun map(repositoryModel: GetUserResponse) =
         repositoryModel.run {
-            UserProfileModel(userName = login,
+            UserProfileModel(
+                userName = login,
                 fullName = if (name == null) login else name!!,
                 email = (if (email == null) "" else email)!!,
                 profileUrl = htmlUrl,
-                avatarUrl = avatarUrl)
+                avatarUrl = avatarUrl,
+                location = (if (location == null) "" else location)!!
+            )
         }
 }

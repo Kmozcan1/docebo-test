@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.databinding.UserListItemBinding
 import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
-import com.kmozcan1.docebotest.presentation.ui.PaginatedListView
+import com.kmozcan1.docebotest.ui.PaginatedListView
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.
  */
-class UserListAdapter(private val userList: MutableList<UserSearchItemModel>,
+class UserListAdapter(val userList: MutableList<UserSearchItemModel>,
                       private val callbackListener: PaginatedListView.CallbackListener):
         RecyclerView.Adapter<UserListAdapter.UserListItemViewHolder>() {
 

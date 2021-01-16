@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.RepositoryListItemBinding
 import com.kmozcan1.docebotest.domain.model.RepositoryModel
-import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
-import com.kmozcan1.docebotest.presentation.ui.PaginatedListView
+import com.kmozcan1.docebotest.ui.PaginatedListView
 import java.text.NumberFormat
 import java.util.*
 
 /**
  * Created by Kadir Mert Özcan on 05-Jan-21.
  */
-class RepositoryListAdapter(private val repositoryList: MutableList<RepositoryModel>,
+class RepositoryListAdapter(val repositoryList: MutableList<RepositoryModel>,
                              private val callbackListener: PaginatedListView.CallbackListener):
     RecyclerView.Adapter<RepositoryListAdapter.RepositoryListItemViewHolder>() {
     override fun onCreateViewHolder(
@@ -35,10 +34,10 @@ class RepositoryListAdapter(private val repositoryList: MutableList<RepositoryMo
                 stars = starCount,
                 // Star image source is based on number of stars
                 starSrc = when (starCount) {
-                    in 1000..Int.MAX_VALUE -> {
+                    in 100..Int.MAX_VALUE -> {
                         R.drawable.ic_star
                     }
-                    in 100 until 1000 -> {
+                    in 50 until 100 -> {
                         R.drawable.ic_star_half_full
                     }
                     else -> {
@@ -80,5 +79,4 @@ class RepositoryListAdapter(private val repositoryList: MutableList<RepositoryMo
         repositoryList.clear()
         notifyDataSetChanged()
     }
-
 }

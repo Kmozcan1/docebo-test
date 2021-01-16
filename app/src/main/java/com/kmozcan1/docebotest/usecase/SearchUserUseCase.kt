@@ -1,10 +1,10 @@
-package com.kmozcan1.docebotest.domain.interactor
+package com.kmozcan1.docebotest.usecase
 
 import com.kmozcan1.docebotest.domain.DomainConstants.PER_PAGE
-import com.kmozcan1.docebotest.domain.interactor.base.ObservableUseCase
 import com.kmozcan1.docebotest.domain.mapper.SearchResultMapper
 import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
 import com.kmozcan1.docebotest.domain.repository.SearchRepository
+import com.kmozcan1.docebotest.usecase.base.ObservableUseCase
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
@@ -22,13 +22,12 @@ class SearchUserUseCase @Inject constructor(
 
     private lateinit var userName: String
 
-    private val userListSubject: PublishSubject<UserSearchResultModel> by lazy {
-        PublishSubject.create()
-    }
+    private lateinit var userListSubject: PublishSubject<UserSearchResultModel>
 
     // Makes the initial search and subscribes the observable
     // after ViewModel calls the execute function of ObservableUseCase
     override fun buildObservable(params: Params?): Observable<UserSearchResultModel> {
+        userListSubject = PublishSubject.create()
         page = 1
         userName = params!!.userName
         return userListSubject

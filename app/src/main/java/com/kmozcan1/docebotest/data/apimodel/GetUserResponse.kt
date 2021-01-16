@@ -2,7 +2,6 @@ package com.kmozcan1.docebotest.data.apimodel
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import org.threeten.bp.LocalDateTime
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.

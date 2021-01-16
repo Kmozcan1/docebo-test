@@ -1,10 +1,10 @@
-package com.kmozcan1.docebotest.presentation.ui
+package com.kmozcan1.docebotest.ui
 
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -14,7 +14,6 @@ import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.UserViewPagerFragmentBinding
 import com.kmozcan1.docebotest.presentation.adapter.UserViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.
@@ -39,11 +38,13 @@ class UserViewPagerFragment : Fragment() {
         activity as AppCompatActivity
     }
 
-    @Inject
-    lateinit var navController: NavController
+    val navController by lazy {
+        findNavController()
+    }
 
-    @Inject
-    lateinit var appBarConfiguration: AppBarConfiguration
+    val appBarConfiguration by lazy {
+        AppBarConfiguration(navController.graph)
+    }
 
     private val tabTitleList by lazy {
         listOf(getString(R.string.Profile), getString(R.string.Repositories))

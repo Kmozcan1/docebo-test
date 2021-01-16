@@ -1,7 +1,5 @@
 package com.kmozcan1.docebotest.domain.model
 
-import com.squareup.moshi.Json
-
 /**
  * Created by Kadir Mert Özcan on 05-Jan-21.
  *
