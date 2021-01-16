@@ -3,7 +3,7 @@ package com.kmozcan1.docebotest.presentation.viewmodel
 import androidx.hilt.lifecycle.ViewModelInject
 import com.kmozcan1.docebotest.domain.enums.SortDirection
 import com.kmozcan1.docebotest.domain.enums.SortType
-import com.kmozcan1.docebotest.presentation.viewstate.RepositoriesViewState
+import com.kmozcan1.docebotest.ui.viewstate.RepositoriesViewState
 import com.kmozcan1.docebotest.usecase.GetUserRepositoriesUseCase
 
 class RepositoriesViewModel @ViewModelInject constructor(

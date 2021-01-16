@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.listener
+package com.kmozcan1.docebotest.ui.listener
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

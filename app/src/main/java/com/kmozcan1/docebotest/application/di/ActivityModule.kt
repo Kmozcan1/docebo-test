@@ -1,7 +1,7 @@
 package com.kmozcan1.docebotest.application.di
 
 import android.app.Activity
-import com.kmozcan1.docebotest.ui.MainActivity
+import com.kmozcan1.docebotest.ui.view.MainActivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

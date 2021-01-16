@@ -4,7 +4,7 @@
 
     <data>
         <import type="com.kmozcan1.docebotest.domain.enums.SortType"/>
-        <variable name="repositoriesFragment" type="com.kmozcan1.docebotest.ui.RepositoriesFragment"/>
+        <variable name="repositoriesFragment" type="com.kmozcan1.docebotest.ui.view.RepositoriesFragment"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

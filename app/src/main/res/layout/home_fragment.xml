@@ -6,7 +6,7 @@
         android:id="@+id/homeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.HomeFragment">
+        tools:context=".ui.view.HomeFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/homeToolbar"
@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.kmozcan1.docebotest.ui.PaginatedListView
+        <com.kmozcan1.docebotest.ui.view.PaginatedListView
             android:id="@+id/userListView"
             android:layout_width="0dp"
             android:layout_height="0dp"

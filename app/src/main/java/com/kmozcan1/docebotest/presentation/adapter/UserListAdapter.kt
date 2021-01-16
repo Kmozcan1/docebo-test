@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.databinding.UserListItemBinding
 import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
-import com.kmozcan1.docebotest.ui.PaginatedListView
+import com.kmozcan1.docebotest.ui.view.PaginatedListView
 
 /**
  * Created by Kadir Mert Özcan on 03-Jan-21.

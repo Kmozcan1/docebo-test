@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.viewstate
+package com.kmozcan1.docebotest.ui.viewstate
 
 import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
 import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
@@ -8,12 +8,12 @@ import com.kmozcan1.docebotest.domain.model.UserSearchResultModel
  * Created by Kadir Mert Özcan on 29-Dec-20.
  */
 data class HomeViewState (
-    val state: State,
-    val errorMessage: String? = null,
-    val userSearchResult: UserSearchResultModel? = null,
-    val allSearchResults: MutableList<UserSearchItemModel>? = null,
-    val page: Int? = null,
-    val searchQuery: String? = null
+        val state: State,
+        val errorMessage: String? = null,
+        val userSearchResult: UserSearchResultModel? = null,
+        val allSearchResults: MutableList<UserSearchItemModel>? = null,
+        val page: Int? = null,
+        val searchQuery: String? = null
 ) {
     companion object {
         fun initial(): HomeViewState = HomeViewState(

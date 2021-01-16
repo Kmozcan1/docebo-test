@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="userViewPagerFragment" type="com.kmozcan1.docebotest.ui.UserViewPagerFragment"/>
+        <variable name="userViewPagerFragment" type="com.kmozcan1.docebotest.ui.view.UserViewPagerFragment"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,7 +1,7 @@
 package com.kmozcan1.docebotest.presentation.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import com.kmozcan1.docebotest.presentation.viewstate.ProfileViewState
+import com.kmozcan1.docebotest.ui.viewstate.ProfileViewState
 import com.kmozcan1.docebotest.usecase.GetUserUseCase
 
 

@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.viewstate
+package com.kmozcan1.docebotest.ui.viewstate
 
 /**
  * Created by Kadir Mert Özcan on 29-Dec-20.

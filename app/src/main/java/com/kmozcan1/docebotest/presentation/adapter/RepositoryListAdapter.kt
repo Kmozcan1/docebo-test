@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.RepositoryListItemBinding
 import com.kmozcan1.docebotest.domain.model.RepositoryModel
-import com.kmozcan1.docebotest.ui.PaginatedListView
+import com.kmozcan1.docebotest.ui.view.PaginatedListView
 import java.text.NumberFormat
 import java.util.*
 

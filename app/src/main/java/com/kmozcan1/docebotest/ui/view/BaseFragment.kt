@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

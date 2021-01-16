@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.ui
+package com.kmozcan1.docebotest.ui.view
 
 import android.os.Bundle
 import android.view.*
@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.UserViewPagerFragmentBinding
 import com.kmozcan1.docebotest.presentation.adapter.UserViewPagerAdapter
+import com.kmozcan1.docebotest.ui.view.UserViewPagerFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
