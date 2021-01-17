@@ -1,9 +1,9 @@
-package com.kmozcan1.docebotest.presentation.adapter
+package com.kmozcan1.docebotest.ui.adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.kmozcan1.docebotest.presentation.ArgConstants.USER_NAME_ARG
+import com.kmozcan1.docebotest.ui.ArgConstants.USER_NAME_ARG
 import com.kmozcan1.docebotest.ui.view.ProfileFragment
 import com.kmozcan1.docebotest.ui.view.RepositoriesFragment
 import com.kmozcan1.docebotest.ui.view.UserViewPagerFragment

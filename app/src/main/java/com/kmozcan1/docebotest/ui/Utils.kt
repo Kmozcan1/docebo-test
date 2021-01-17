@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation
+package com.kmozcan1.docebotest.ui
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager

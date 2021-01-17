@@ -9,9 +9,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.HomeFragmentBinding
-import com.kmozcan1.docebotest.presentation.adapter.UserListAdapter
-import com.kmozcan1.docebotest.presentation.hideKeyboard
-import com.kmozcan1.docebotest.presentation.viewmodel.HomeViewModel
+import com.kmozcan1.docebotest.ui.adapter.UserListAdapter
+import com.kmozcan1.docebotest.ui.hideKeyboard
+import com.kmozcan1.docebotest.ui.presentation.HomeViewModel
 import com.kmozcan1.docebotest.ui.viewstate.HomeViewState
 import com.kmozcan1.docebotest.ui.viewstate.HomeViewState.State
 import dagger.hilt.android.AndroidEntryPoint
@@ -123,10 +123,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
             }
             State.SEARCH_RESULT -> {
                 with(binding.userListView) {
-                    // Hides the progress bars
-                    showTopProgressBar(false)
-                    showBottomProgressBar(false)
-
                     viewState.userSearchResult?.let { searchResult ->
                         // Shows empty text if no results are returned
                         if (searchResult.userList.isEmpty()) {
@@ -148,6 +144,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
                             userListAdapter.addSearchResult(viewState.allSearchResults!!)
                         }
                         searchDisabled = false
+                        // Hides the progress bars
+                        showTopProgressBar(false)
+                        showBottomProgressBar(false)
                     }
                 }
             }

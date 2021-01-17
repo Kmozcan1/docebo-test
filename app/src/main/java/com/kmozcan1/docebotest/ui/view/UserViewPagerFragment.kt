@@ -12,8 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.UserViewPagerFragmentBinding
-import com.kmozcan1.docebotest.presentation.adapter.UserViewPagerAdapter
-import com.kmozcan1.docebotest.ui.view.UserViewPagerFragmentArgs
+import com.kmozcan1.docebotest.ui.adapter.UserViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -60,10 +59,11 @@ class UserViewPagerFragment : Fragment() {
             inflater, container, false
         )
         setToolbar()
+        setViewPager()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    private fun setViewPager() {
         userViewPagerAdapter = UserViewPagerAdapter(this, args.userName)
         viewPager = binding.userPager
         viewPager.adapter = userViewPagerAdapter

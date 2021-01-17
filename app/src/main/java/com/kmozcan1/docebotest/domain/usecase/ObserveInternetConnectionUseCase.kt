@@ -1,7 +1,7 @@
-package com.kmozcan1.docebotest.usecase
+package com.kmozcan1.docebotest.domain.usecase
 
 import com.kmozcan1.docebotest.domain.manager.InternetManager
-import com.kmozcan1.docebotest.usecase.base.ObservableUseCase
+import com.kmozcan1.docebotest.domain.usecase.base.ObservableUseCase
 import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 

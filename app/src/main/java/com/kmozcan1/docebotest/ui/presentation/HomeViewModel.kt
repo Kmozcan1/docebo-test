@@ -1,15 +1,15 @@
-package com.kmozcan1.docebotest.presentation.viewmodel
+package com.kmozcan1.docebotest.ui.presentation
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import com.kmozcan1.docebotest.domain.model.UserSearchItemModel
 import com.kmozcan1.docebotest.ui.viewstate.HomeViewState
-import com.kmozcan1.docebotest.usecase.SearchUserUseCase
+import com.kmozcan1.docebotest.domain.usecase.SearchUserUseCase
 
 class HomeViewModel @ViewModelInject constructor(
-    private val searchUserUseCase: SearchUserUseCase,
-    @Assisted private val savedStateHandle: SavedStateHandle
+        private val searchUserUseCase: SearchUserUseCase,
+        @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel<HomeViewState>() {
 
     private val allSearchResults = mutableListOf<UserSearchItemModel>()

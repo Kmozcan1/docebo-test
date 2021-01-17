@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.usecase.base
+package com.kmozcan1.docebotest.domain.usecase.base
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable

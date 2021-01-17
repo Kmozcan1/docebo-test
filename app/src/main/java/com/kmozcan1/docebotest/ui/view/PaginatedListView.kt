@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.kmozcan1.docebotest.databinding.PaginatedListViewBinding
 import com.kmozcan1.docebotest.ui.listener.PaginatedRecyclerViewScrollListener
-import com.kmozcan1.docebotest.presentation.setAdapter
+import com.kmozcan1.docebotest.ui.setAdapter
 
 
 /**
