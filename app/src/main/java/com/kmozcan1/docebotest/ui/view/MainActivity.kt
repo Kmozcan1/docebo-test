@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.ActivityMainBinding
-import com.kmozcan1.docebotest.presentation.viewmodel.MainViewModel
+import com.kmozcan1.docebotest.ui.presentation.MainViewModel
 import com.kmozcan1.docebotest.ui.viewstate.MainViewState
 import com.kmozcan1.docebotest.ui.viewstate.MainViewState.State.*
 import dagger.hilt.android.AndroidEntryPoint

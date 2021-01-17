@@ -9,9 +9,9 @@ import com.kmozcan1.docebotest.R
 import com.kmozcan1.docebotest.databinding.RepositoriesFragmentBinding
 import com.kmozcan1.docebotest.domain.enums.SortDirection
 import com.kmozcan1.docebotest.domain.enums.SortType
-import com.kmozcan1.docebotest.presentation.ArgConstants
-import com.kmozcan1.docebotest.presentation.adapter.RepositoryListAdapter
-import com.kmozcan1.docebotest.presentation.viewmodel.RepositoriesViewModel
+import com.kmozcan1.docebotest.ui.ArgConstants
+import com.kmozcan1.docebotest.ui.adapter.RepositoryListAdapter
+import com.kmozcan1.docebotest.ui.presentation.RepositoriesViewModel
 import com.kmozcan1.docebotest.ui.viewstate.RepositoriesViewState
 import com.kmozcan1.docebotest.ui.viewstate.RepositoriesViewState.State
 import dagger.hilt.android.AndroidEntryPoint

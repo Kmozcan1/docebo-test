@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.viewmodel
+package com.kmozcan1.docebotest.ui.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

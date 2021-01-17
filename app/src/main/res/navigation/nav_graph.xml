@@ -8,7 +8,8 @@
         android:name="com.kmozcan1.docebotest.ui.view.HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_userViewPagerFragment"
-            app:destination="@id/userViewPagerFragment" />
+            app:destination="@id/userViewPagerFragment"
+            app:enterAnim="@anim/fragment_fade_enter" />
     </fragment>
     <fragment
         android:id="@+id/userViewPagerFragment"

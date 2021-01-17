@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.adapter
+package com.kmozcan1.docebotest.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

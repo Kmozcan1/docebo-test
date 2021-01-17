@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation.adapter
+package com.kmozcan1.docebotest.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -51,7 +51,9 @@ class UserListAdapter(val userList: MutableList<UserSearchItemModel>,
 
     // Clears the RecyclerView data
     fun clearSearchResults() {
+        val size = userList.size
         userList.clear()
-        notifyDataSetChanged()
+        notifyItemRangeRemoved(0, size)
+        //notifyDataSetChanged()
     }
 }

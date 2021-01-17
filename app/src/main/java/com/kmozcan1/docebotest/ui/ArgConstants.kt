@@ -1,4 +1,4 @@
-package com.kmozcan1.docebotest.presentation
+package com.kmozcan1.docebotest.ui
 
 /**
  * Created by Kadir Mert Özcan on 04-Jan-21.
